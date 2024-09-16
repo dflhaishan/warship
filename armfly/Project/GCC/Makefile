@@ -38,12 +38,10 @@ BUILD_DIR = ${ARMFLY}/build
 ######################################
 # C sources
 C_SOURCES =  \
-${ARMFLY}/User/Src/main.c \
-${ARMFLY}/User/Src/freertos.c \
-${ARMFLY}/User/Src/stm32f1xx_it.c \
-${ARMFLY}/User/Src/stm32f1xx_hal_msp.c \
-${ARMFLY}/User/Src/libutilies.c \
-${ARMFLY}/User/Src/system_stm32f1xx.c \
+${ARMFLY}/User/main.c \
+${ARMFLY}/User/libutilies.c \
+${ARMFLY}/User/bsp/stm32f1xx_it.c \
+${ARMFLY}/User/bsp/system_stm32f1xx.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c \
@@ -57,6 +55,7 @@ ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_msp.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/croutine.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/event_groups.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/list.c \
@@ -64,6 +63,7 @@ ${ARMFLY}/RTOS/FreeRTOS/Source/queue.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/stream_buffer.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/tasks.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/timers.c \
+${ARMFLY}/RTOS/FreeRTOS/Source/freertos.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/portable/MemMang/heap_4.c \
 ${ARMFLY}/RTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c
@@ -124,11 +124,13 @@ C_DEFS =  \
 
 # AS includes
 AS_INCLUDES =  \
--I${ARMFLY}/User/Inc
+-I${ARMFLY}/User/
 
 # C includes
 C_INCLUDES =  \
--I${ARMFLY}/User/Inc \
+-I${ARMFLY}/User \
+-I${ARMFLY}/User/bsp \
+-I${ARMFLY}/User/bsp/inc \
 -I${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Inc/Legacy \
 -I${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Inc \
 -I${ARMFLY}/Libraries/CMSIS/Device/ST/STM32F1xx/Include \
