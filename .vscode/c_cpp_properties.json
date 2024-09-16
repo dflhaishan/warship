@@ -3,7 +3,7 @@
         {
             "name": "Linux",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/armfly/**"
             ],
             "defines": [
                 "USE_HAL_DRIVER",

@@ -4,18 +4,18 @@
         {
             "name": "Cortex Debug",
             "cwd": "${workspaceFolder}",
-            "executable": "/home/jhs/dflhaishan/warship/demo/warship/build/app.elf",
+            "executable": "/home/jhs/dflhaishan/warship/armfly/build/app.elf",
             "request": "launch",
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
             "configFiles": [
-                "${workspaceFolder}/demo/warship/tools/openocd/interface/stlink.cfg",
-                "${workspaceFolder}/demo/warship/tools/openocd/target/stm32f1x.cfg"
+                "${workspaceFolder}/armfly/tools/openocd/interface/stlink.cfg",
+                "${workspaceFolder}/armfly/tools/openocd/target/stm32f1x.cfg"
             ],
-            "armToolchainPath": "/home/jhs/dflhaishan/warship/demo/warship/tools/toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin",
+            "armToolchainPath": "/home/jhs/dflhaishan/warship/armfly/tools/toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin",
             "showDevDebugOutput": "raw",
-            "svdFile": "${workspaceFolder}/demo/warship/tools/debug/svd/STM32F103xx.svd",
+            "svdFile": "${workspaceFolder}/armfly/tools/debug/svd/STM32F103xx.svd",
             "preLaunchTask": "Build",
         }
     ]
