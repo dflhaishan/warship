@@ -1,0 +1,22 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Cortex Debug",
+            "cwd": "${workspaceFolder}",
+            "executable": "${workspaceFolder}/build/app.elf",
+            "request": "launch",
+            "type": "cortex-debug",
+            "runToEntryPoint": "main",
+            "servertype": "openocd",
+            "configFiles": [
+                "${workspaceFolder}/tools/openocd/interface/stlink.cfg",
+                "${workspaceFolder}/tools/openocd/target/stm32f1x.cfg"
+            ],
+            "armToolchainPath": "${workspaceFolder}/tools/toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin",
+            "showDevDebugOutput": "raw",
+            "svdFile": "${workspaceFolder}/tools/debug/svd/STM32F103xx.svd",
+            "preLaunchTask": "Build",
+        }
+    ]
+}
