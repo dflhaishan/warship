@@ -37,44 +37,24 @@ BUILD_DIR = ${ARMFLY}/build
 # source
 ######################################
 # C sources
-C_SOURCES =  \
-${ARMFLY}/User/main.c \
-${ARMFLY}/User/libutilies.c \
-${ARMFLY}/User/bsp/stm32f1xx_it.c \
-${ARMFLY}/User/bsp/system_stm32f1xx.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_msp.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/croutine.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/event_groups.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/list.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/queue.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/stream_buffer.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/tasks.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/timers.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/freertos.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/CMSIS_RTOS/cmsis_os.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/portable/MemMang/heap_4.c \
-${ARMFLY}/RTOS/FreeRTOS/Source/portable/GCC/ARM_CM3/port.c
+C_SOURCES =
 
 # ASM sources
 ASM_SOURCES =  \
-${ARMFLY}/Project/GCC/startup_stm32f103xe.s
+startup_stm32f103xe.s
 
 # ASM sources
 ASMM_SOURCES = 
 
+# AS includes
+AS_INCLUDES = 
+
+# C includes
+C_INCLUDES = 
+
+include ${ARMFLY}/Libraries/subdir.mk
+include ${ARMFLY}/RTOS/FreeRTOS/Source/subdir.mk
+include ${ARMFLY}/User/subdir.mk
 
 #######################################
 # binaries
@@ -121,26 +101,6 @@ C_DEFS =  \
 -DUSE_HAL_DRIVER \
 -DSTM32F103xE
 
-
-# AS includes
-AS_INCLUDES =  \
--I${ARMFLY}/User/
-
-# C includes
-C_INCLUDES =  \
--I${ARMFLY}/User \
--I${ARMFLY}/User/bsp \
--I${ARMFLY}/User/bsp/inc \
--I${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Inc/Legacy \
--I${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Inc \
--I${ARMFLY}/Libraries/CMSIS/Device/ST/STM32F1xx/Include \
--I${ARMFLY}/Libraries/CMSIS/Include \
--I${ARMFLY}/RTOS/FreeRTOS/Source/include \
--I${ARMFLY}/RTOS/FreeRTOS/Source/CMSIS_RTOS \
--I${ARMFLY}/RTOS/FreeRTOS/Source/portable/GCC/ARM_CM3
-
-
-
 # compile gcc flags
 ASFLAGS = $(MCU) $(AS_DEFS) $(AS_INCLUDES) $(OPT) -Wall -fdata-sections -ffunction-sections
 
@@ -159,7 +119,7 @@ CFLAGS += -MMD -MP -MF"$(@:%.o=%.d)"
 # LDFLAGS
 #######################################
 # link script
-LDSCRIPT = ${ARMFLY}/Project/GCC/STM32F103ZETx_FLASH.ld
+LDSCRIPT = stm32f103zetx.ld
 
 # libraries
 LIBS = -lc -lm -lnosys 
