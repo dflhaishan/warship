@@ -21,7 +21,8 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
-
+#include "FreeRTOS.h"
+#include "task.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -36,7 +37,21 @@
 
 /* Private macro -------------------------------------------------------------*/
 /* USER CODE BEGIN PM */
+#define START_TASK_PRIO     1
+#define START_STK_SIZE      128
+#define LED0_TASK_PRIO      2
+#define LED0_STK_SIZE       50
+#define LED1_TASK_PRIO      2
+#define LED1_STK_SIZE       50
 
+TaskHandle_t StartTask_Handler;
+void start_task(void *pvParameters);
+
+TaskHandle_t LED0Task_Handler;
+void led0_task(void *pvParameters);
+
+TaskHandle_t LED1Task_Handler;
+void led1_task(void *pvParameters);
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
@@ -84,7 +99,9 @@ int main(void)
 
     /* Initialize all configured peripherals */
     /* USER CODE BEGIN 2 */
+    xTaskCreate(start_task, "start task", START_STK_SIZE, NULL, START_TASK_PRIO, &StartTask_Handler);
 
+    vTaskStartScheduler();
     /* USER CODE END 2 */
 
     /* Infinite loop */
@@ -188,3 +205,50 @@ void assert_failed(uint8_t *file, uint32_t line)
     /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */
+
+void start_task(void *pvParameters)
+{
+    taskENTER_CRITICAL();
+    xTaskCreate(led0_task, "led0_task", LED0_STK_SIZE, NULL, LED0_TASK_PRIO, &LED0Task_Handler);
+    xTaskCreate(led1_task, "led1_task", LED1_STK_SIZE, NULL, LED1_TASK_PRIO, &LED1Task_Handler);
+    vTaskDelete(StartTask_Handler);
+    taskEXIT_CRITICAL();
+}
+
+void led0_task(void *pvParameters)
+{
+    int led0 = 0;
+
+    while (1)
+    {
+        led0 = HAL_GPIO_ReadPin(GPIOB, GPIO_PIN_5);
+        if (led0)
+        {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_RESET);
+        }
+        else
+        {
+            HAL_GPIO_WritePin(GPIOB, GPIO_PIN_5, GPIO_PIN_SET);
+        }
+        vTaskDelay(1000);
+    }
+}
+
+void led1_task(void *pvParameters)
+{
+    int led1 = 0;
+
+    while (1)
+    {
+        led1 = HAL_GPIO_ReadPin(GPIOE, GPIO_PIN_5);
+        if (led1)
+        {
+            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_RESET);
+        }
+        else
+        {
+            HAL_GPIO_WritePin(GPIOE, GPIO_PIN_5, GPIO_PIN_SET);
+        }
+        vTaskDelay(1000);
+    }
+}
