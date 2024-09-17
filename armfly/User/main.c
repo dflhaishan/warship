@@ -20,26 +20,18 @@
 
 #define START_TASK_PRIO     1
 #define START_STK_SIZE      128
-#define LED0_TASK_PRIO      2
-#define LED0_STK_SIZE       128
-#define LED1_TASK_PRIO      2
-#define LED1_STK_SIZE       128
+#define LED_TASK_PRIO       2
+#define LED_STK_SIZE        128
 
 TaskHandle_t StartTask_Handler;
-void start_task(void *pvParameters);
+void AppTaskStart(void *argument);
 
-TaskHandle_t LED0Task_Handler;
-void LED0Task(void *pvParameters);
-
-TaskHandle_t LED1Task_Handler;
-void LED1Task(void *pvParameters);
-
-void led_init(void);
-
+TaskHandle_t LEDTask_Handler;
+void AppTaskLED(void *argument);
 
 static void AppTaskCreate(void);
-void AppTaskLED(void *argument);
-void AppTaskStart(void *argument);
+
+
 
 /**
  * @brief  The application entry point.
@@ -80,26 +72,17 @@ void AppTaskStart(void *argument)
 
 void AppTaskCreate()
 {
-    xTaskCreate(LED0Task, "LED0Task", LED0_STK_SIZE, NULL, LED0_TASK_PRIO, &LED0Task_Handler);
-    xTaskCreate(LED1Task, "LED1Task", LED1_STK_SIZE, NULL, LED1_TASK_PRIO, &LED1Task_Handler);
+    xTaskCreate(AppTaskLED, "AppTaskLED", LED_STK_SIZE, NULL, LED_TASK_PRIO, &LEDTask_Handler);
 }
 
-void LED0Task(void *pvParameters)
+void AppTaskLED(void *pvParameters)
 {
     while (1)
     {
         bsp_LedToggle(1);
-        printf("led 1 toggle\r\n");
+        bsp_LedToggle(2);
+        printf("led toggle\r\n");
         vTaskDelay(1000);
     }
 }
 
-void LED1Task(void *pvParameters)
-{
-    while (1)
-    {
-        bsp_LedToggle(2);
-        printf("led 2 toggle\r\n");
-        vTaskDelay(1000);
-    }
-}
