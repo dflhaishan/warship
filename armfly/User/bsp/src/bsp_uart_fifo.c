@@ -970,7 +970,7 @@ void UART5_IRQHandler(void)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-int stdout_putchar (int ch)
+int __io_putchar (int ch)
 {
 #if 1	/* 将需要printf的字符通过串口中断FIFO发送出去，printf函数会立即返回 */
 	comSendChar(COM1, ch);
@@ -996,7 +996,7 @@ int stdout_putchar (int ch)
 *	返 回 值: 无
 *********************************************************************************************************
 */
-int stdin_getchar (void)
+int __io_getchar (void)
 {
 
 #if 1	/* 从串口接收FIFO中取1个数据, 只有取到数据才返回 */

@@ -19,6 +19,9 @@
 #define _BSP_H_
 
 #include "stm32f1xx_hal.h"
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
 
 #ifndef TRUE
 	#define TRUE  1
@@ -36,8 +39,11 @@
 #define DISABLE_INT()	__set_PRIMASK(1)	/* 禁止全局中断 */
 
 #include "bsp_uart_fifo.h"
+#include "bsp_led.h"
 
 void System_Init(void);
+
+void bsp_Init(void);
 
 void Error_Handler(char *file, uint32_t line);
 
