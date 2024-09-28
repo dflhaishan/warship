@@ -40,6 +40,7 @@
 
 #include "bsp_uart_fifo.h"
 #include "bsp_led.h"
+#include "bsp_tft_lcd.h"
 
 void System_Init(void);
 

@@ -78,6 +78,8 @@
 #define HAL_RCC_MODULE_ENABLED
 #define HAL_USART_MODULE_ENABLED
 #define HAL_UART_MODULE_ENABLED
+#define HAL_NOR_MODULE_ENABLED
+#define HAL_SRAM_MODULE_ENABLED
 
 /* ########################## Oscillator Values adaptation ####################*/
 /**
