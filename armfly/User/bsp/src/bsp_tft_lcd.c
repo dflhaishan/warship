@@ -163,10 +163,6 @@ const struct lcd_cmd_t lcd_cmd[] =
 };
 
 
-uint32_t POINT_COLOR=0xFF000000;		//画笔颜色
-uint32_t BACK_COLOR =0xFFFFFFFF;  	//背景色 
-
-
 void LCD_SetDirection(uint8_t _dir)
 {
     *lcd_ctrl.reg = 0x3600;     
@@ -200,52 +196,6 @@ static void LCD_SetCursor(uint16_t Xpos, uint16_t Ypos)
     *lcd_ctrl.reg = lcd_ctrl.set_y_cmd + 1;
     *lcd_ctrl.ram = Ypos & 0XFF;			
 }
-
-// void LCD_ShowChar(uint16_t x,uint16_t y,uint8_t num,uint8_t size,uint8_t mode)
-// {  							  
-//     uint8_t temp,t1,t;
-// 	uint16_t y0=y;
-// 	uint8_t csize=(size/8+((size%8)?1:0))*(size/2);		//得到字体一个字符对应点阵集所占的字节数	
-//  	num=num-' ';//得到偏移后的值（ASCII字库是从空格开始取模，所以-' '就是对应字符的字库）
-// 	for(t=0;t<csize;t++)
-// 	{   
-// 		if(size==12)temp=asc2_1206[num][t]; 	 	//调用1206字体
-// 		else if(size==16)temp=asc2_1608[num][t];	//调用1608字体
-// 		else if(size==24)temp=asc2_2412[num][t];	//调用2412字体
-// 		else if(size==32)temp=asc2_3216[num][t];	//调用3216字体
-// 		else return;								//没有的字库
-// 		for(t1=0;t1<8;t1++)
-// 		{			    
-// 			if(temp&0x80)LCD_PutPixel(x,y,POINT_COLOR);
-// 			else if(mode==0)LCD_PutPixel(x,y,BACK_COLOR);
-// 			temp<<=1;
-// 			y++;
-// 			if(y>=800)return;		//超区域了
-// 			if((y-y0)==size)
-// 			{
-// 				y=y0;
-// 				x++;
-// 				if(x>=480)return;	//超区域了
-// 				break;
-// 			}
-// 		}  	 
-// 	}  	    	   	 	  
-// } 
-
-// void LCD_ShowString(uint16_t x,uint16_t y,uint16_t width,uint16_t height,uint8_t size,uint8_t *p)
-// {         
-// 	uint8_t x0=x;
-// 	width+=x;
-// 	height+=y;
-//     while((*p<='~')&&(*p>=' '))//判断是不是非法字符!
-//     {       
-//         if(x>=width){x=x0;y+=size;}
-//         if(y>=height)break;//退出
-//         LCD_ShowChar(x,y,*p,size,0);
-//         x+=size/2;
-//         p++;
-//     }  
-// }
 
 /*
 *********************************************************************************************************
@@ -313,8 +263,8 @@ static void InitHardLcd(void)
 	/* 设置字体参数 */
 	{
 		tFont16.FontCode = FC_ST_16;	/* 字体代码 16点阵 */
-		tFont16.FrontColor = CL_WHITE;		/* 字体颜色 0 或 1 */
-		tFont16.BackColor = CL_BLUE;	/* 文字背景颜色 */
+		tFont16.FrontColor = CL_BLACK;		/* 字体颜色 0 或 1 */
+		tFont16.BackColor = CL_WHITE;	/* 文字背景颜色 */
 		tFont16.Space = 0;			/* 文字间距，单位 = 像素 */
 	}
 
@@ -365,9 +315,8 @@ static void InitHardLcd(void)
 
     LCD_SetDirection(0);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, SET);  //点亮背光
-    LCD_ClrScr(CL_WHITE);
-    POINT_COLOR=CL_YELLOW; 
-    LCD_DispStr(50, 10, "Touch Calibration", &tFont16);
+    LCD_ClrScr(CL_RED);
+    LCD_DispStr(200, 400, "Touch Calibration", &tFont16);
 }
 
 /*
@@ -686,24 +635,6 @@ void LCD_Fill_Rect(uint16_t _usX, uint16_t _usY, uint16_t _usHeight, uint16_t _u
         }
 	}     
 }
-
-/*
-*********************************************************************************************************
-*	函 数 名: LCD_DispStrEx
-*	功能说明: 在LCD指定坐标（左上角）显示一个字符串。 增强型函数。支持左\中\右对齐，支持定长清屏。
-*	形    参:
-*		_usX : X坐标
-*		_usY : Y坐标
-*		_ptr  : 字符串指针
-*		_tFont : 字体结构体，包含颜色、背景色(支持透明)、字体代码、文字间距等参数。可以指定RA8875字库显示汉字
-*		_Width : 字符串显示区域的宽度. 0 表示不处理留白区域，此时_Align无效
-*		_Align :字符串在显示区域的对齐方式，
-*				ALIGN_LEFT = 0,
-*				ALIGN_CENTER = 1,
-*				ALIGN_RIGHT = 2
-*	返 回 值: 无
-*********************************************************************************************************
-*/
 
 /*
 *********************************************************************************************************
