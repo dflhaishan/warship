@@ -17,17 +17,22 @@
 
 #include "includes.h"
 #include "bsp.h"
+#include "lvgl.h"
 
 #define START_TASK_PRIO     1
 #define START_STK_SIZE      128
 #define LED_TASK_PRIO       2
 #define LED_STK_SIZE        128
+#define LVGL_TASK_PRIO      2
+#define LVGL_STK_SIZE       1024
 
 TaskHandle_t StartTask_Handler;
 void AppTaskStart(void *argument);
 
 TaskHandle_t LEDTask_Handler;
 void AppTaskLED(void *argument);
+TaskHandle_t LVGLTask_Handler;
+void AppTaskLVGL(void *argument);
 
 static void AppTaskCreate(void);
 
@@ -73,6 +78,7 @@ void AppTaskStart(void *argument)
 void AppTaskCreate()
 {
     xTaskCreate(AppTaskLED, "AppTaskLED", LED_STK_SIZE, NULL, LED_TASK_PRIO, &LEDTask_Handler);
+    xTaskCreate(AppTaskLVGL, "AppTaskLVGL", LVGL_STK_SIZE, NULL, LVGL_STK_SIZE, &LVGLTask_Handler);
 }
 
 void AppTaskLED(void *pvParameters)
@@ -83,6 +89,19 @@ void AppTaskLED(void *pvParameters)
         bsp_LedToggle(2);
         printf("led toggle\r\n");
         vTaskDelay(1000);
+    }
+}
+
+void AppTaskLVGL(void *pvParameters)
+{
+    lv_init();
+    lv_tick_set_cb(xTaskGetTickCount);
+    lv_port_disp_init();
+    lv_user_gui_init();
+    while (1)
+    {
+        lv_timer_handler();
+        vTaskDelay(10);
     }
 }
 

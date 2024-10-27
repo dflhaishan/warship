@@ -626,11 +626,9 @@ void LCD_Fill_Rect(uint16_t _usX, uint16_t _usY, uint16_t _usHeight, uint16_t _u
 	for(i=0;i<height;i++)
 	{
 		LCD_SetCursor(_usX,_usY+i);   	//设置光标位置 
-		// LCD_WriteRAM_Prepare();     //开始写入GRAM
         *lcd_ctrl.reg = lcd_ctrl.set_gram_cmd;
 		for(j=0;j<width;j++)
         {
-            // LCD->LCD_RAM=color[i*width+j];//写入数据 
             *lcd_ctrl.ram = _usColor;
         }
 	}     
