@@ -5,6 +5,10 @@
         "bsp.h": "c",
         "task.h": "c",
         "cstdint": "cpp",
-        "stm32f1xx_hal_conf.h": "c"
+        "stm32f1xx_hal_conf.h": "c",
+        "lv_port_disp.h": "c",
+        "string": "c",
+        "rope": "c",
+        "*.tcc": "c"
     }
 }
