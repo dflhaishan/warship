@@ -20,20 +20,39 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef __PAGE_FACTORY_H
-#define __PAGE_FACTORY_H
+#ifndef __RESOURCE_MANAGER_H
+#define __RESOURCE_MANAGER_H
 
-#include "pagebase.h"
+#include <vector>
 
-class PageFactory
+class ResourceManager
 {
-public:
 
-    virtual PageBase* CreatePage(const char* name)
+public:
+    ResourceManager();
+    ~ResourceManager();
+
+    bool AddResource(const char* name, void* ptr);
+    bool RemoveResource(const char* name);
+    void* GetResource(const char* name);
+    void SetDefault(void* ptr);
+
+private:
+    typedef struct ResourceNode
     {
-        return nullptr;
-    };
+        const char* name;
+        void* ptr;
+
+        bool operator==(const struct ResourceNode n) const
+        {
+            return (this->name == n.name && this->ptr == n.ptr);
+        }
+    } ResourceNode_t;
+
+private:
+    std::vector<ResourceNode_t> NodePool;
+    void* DefaultPtr;
+    bool SearchNode(const char* name, ResourceNode_t* node);
 };
 
-
-#endif // !__PAGE_FACTORY_H
+#endif

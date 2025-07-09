@@ -1,3 +1,25 @@
+/*
+ * MIT License
+ * Copyright (c) 2021 _VIFEXTech
+ *
+ * Permission is hereby granted, free of charge, to any person obtaining a copy
+ * of this software and associated documentation files (the "Software"), to deal
+ * in the Software without restriction, including without limitation the rights
+ * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+ * copies of the Software, and to permit persons to whom the Software is
+ * furnished to do so, subject to the following conditions:
+ *
+ * The above copyright notice and this permission notice shall be included in all
+ * copies or substantial portions of the Software.
+ *
+ * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+ * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+ * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+ * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+ * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+ * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+ * SOFTWARE.
+ */
 #ifndef __PAGE_MANAGER_H
 #define __PAGE_MANAGER_H
 
@@ -9,9 +31,11 @@
 class PageManager
 {
 public:
+
+    /* Page switching animation type  */
     typedef enum
     {
-       /* Default (global) animation type  */
+        /* Default (global) animation type  */
         LOAD_ANIM_GLOBAL = 0,
 
         /* New page overwrites old page  */
@@ -35,6 +59,7 @@ public:
         _LOAD_ANIM_LAST = LOAD_ANIM_NONE
     } LoadAnim_t;
 
+    /* Page dragging direction */
     typedef enum
     {
         ROOT_DRAG_DIR_NONE,
@@ -42,24 +67,31 @@ public:
         ROOT_DRAG_DIR_VER,
     } RootDragDir_t;
 
-    typedef void(*lv_anim_setter_t)(void *, int32_t);
-    typedef int32_t(*lv_anim_getter_t)(void *);
+    /* Animated setter  */
+    typedef void(*lv_anim_setter_t)(void*, int32_t);
 
+    /* Animated getter  */
+    typedef int32_t(*lv_anim_getter_t)(void*);
+
+    /* Animation switching record  */
     typedef struct
     {
-        struct 
+        /* As the entered party */
+        struct
         {
             int32_t start;
             int32_t end;
         } enter;
 
-        struct 
+        /* As the exited party */
+        struct
         {
             int32_t start;
             int32_t end;
         } exit;
     } AnimValue_t;
 
+    /* Page loading animation properties */
     typedef struct
     {
         lv_anim_setter_t setter;
@@ -70,19 +102,22 @@ public:
     } LoadAnimAttr_t;
 
 public:
-    PageManager(PageFactory *factory = nullptr);
+    PageManager(PageFactory* factory = nullptr);
     ~PageManager();
 
-    PageBase *Install(const char *className, const char *appName);
-    bool Unistall(const char *appName);
-    bool Register(PageBase *base, const char *name);
-    bool Unregister(const char *name);
+    /* Loader */
+    PageBase* Install(const char* className, const char* appName);
+    bool Uninstall(const char* appName);
+    bool Register(PageBase* base, const char* name);
+    bool Unregister(const char* name);
 
-    PageBase *Push(const char *name, const PageBase::Stash_t *stash = nullptr);
-    PageBase *Pop();
+    /* Router */
+    PageBase* Push(const char* name, const PageBase::Stash_t* stash = nullptr);
+    PageBase* Pop();
     bool BackHome();
-    const char *GetPagePrevName();
+    const char* GetPagePrevName();
 
+    /* Global Anim */
     void SetGlobalLoadAnimType(
         LoadAnim_t anim = LOAD_ANIM_OVER_LEFT,
         uint16_t time = 500,
@@ -90,14 +125,19 @@ public:
     );
 
 private:
-    PageBase *FindPageInPoll(const char *name);
+    /* Page Pool */
+    PageBase* FindPageInPool(const char* name);
+
+    /* Page Stack */
     PageBase* FindPageInStack(const char* name);
     PageBase* GetStackTop();
     PageBase* GetStackTopAfter();
     void SetStackClear(bool keepBottom = true);
-    bool FourceUnload(PageBase* base); 
+    bool FourceUnload(PageBase* base);
+
+    /* Anim */
     bool GetLoadAnimAttr(uint8_t anim, LoadAnimAttr_t* attr);
-    bool GetIsOverAnim(uint8_t anim) 
+    bool GetIsOverAnim(uint8_t anim)
     {
         return (anim >= LOAD_ANIM_OVER_LEFT && anim <= LOAD_ANIM_OVER_BOTTOM);
     }
@@ -114,6 +154,7 @@ private:
     {
         return (LoadAnim_t)AnimState.Current.Type;
     }
+
     /* Root */
     static void onRootDragEvent(lv_event_t* event);
     static void onRootAnimFinish(lv_anim_t* a);

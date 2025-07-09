@@ -20,20 +20,17 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef __PAGE_FACTORY_H
-#define __PAGE_FACTORY_H
+#ifndef __PAGE_H
+#define __PAGE_H
 
-#include "pagebase.h"
+#include "pagemanager.h"
 
-class PageFactory
-{
-public:
+#include "resourcepool.h"
 
-    virtual PageBase* CreatePage(const char* name)
-    {
-        return nullptr;
-    };
-};
+#include "lvgl.h"
 
 
-#endif // !__PAGE_FACTORY_H
+#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+
+
+#endif
