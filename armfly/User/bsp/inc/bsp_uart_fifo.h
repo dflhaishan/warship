@@ -13,6 +13,10 @@
 #ifndef _BSP_USART_FIFO_H_
 #define _BSP_USART_FIFO_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /*
 	 warship stm32f103ze 串口分配：
 	【串口1】 RS232 芯片第1路。
@@ -112,5 +116,9 @@ void USART_SetBaudRate(USART_TypeDef* USARTx, uint32_t BaudRate);
 void bsp_SetUartParam(USART_TypeDef *Instance,  uint32_t BaudRate, uint32_t Parity, uint32_t Mode);
 
 uint8_t UartTxEmpty(COM_PORT_E _ucPort);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

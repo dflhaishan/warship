@@ -13,6 +13,10 @@
 #ifndef _BSP_TFT_LCD_H
 #define _BSP_TFT_LCD_H
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 /* 定义LCD显示区域的分辨率 */
 #define LCD_43_HEIGHT	800		/* 4.3寸宽屏 高度，单位：像素 */
 #define LCD_43_WIDTH	480		/* 4.3寸宽屏 宽度，单位：像素 */
@@ -341,6 +345,9 @@ extern uint8_t g_LcdDirection;		/* 显示方向.0，1，2，3 */
 
 void bsp_InitLcd(void);
 
+#ifdef __cplusplus
+}
+#endif
 
 #endif
 

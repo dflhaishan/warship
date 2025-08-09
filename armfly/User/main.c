@@ -18,6 +18,7 @@
 #include "includes.h"
 #include "bsp.h"
 #include "lvgl.h"
+#include "xtrack_app.h"
 
 #define START_TASK_PRIO     1
 #define START_STK_SIZE      128
@@ -47,12 +48,27 @@ int main(void)
     /* HAL库，时钟等系统初始化 */
     System_Init();
 
+    bsp_Init();
+#if 0
     xTaskCreate(AppTaskStart, "AppTaskStart", START_STK_SIZE, NULL, START_TASK_PRIO, &StartTask_Handler);
 
     vTaskStartScheduler();
     while (1)
     {
     }
+#else
+    lv_init();
+    lv_tick_set_cb(xTaskGetTickCount);
+    lv_port_disp_init();
+    lv_user_gui_init();
+    xtrack_app_init();
+
+    while (1)
+    {
+        xtrack_app_update();
+        lv_task_handler();
+    }
+#endif
 }
 
 /*
@@ -98,6 +114,7 @@ void AppTaskLVGL(void *pvParameters)
     lv_tick_set_cb(xTaskGetTickCount);
     lv_port_disp_init();
     lv_user_gui_init();
+    xtrack_app_init();
     while (1)
     {
         lv_timer_handler();

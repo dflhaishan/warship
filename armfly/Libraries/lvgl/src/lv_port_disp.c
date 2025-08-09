@@ -55,6 +55,7 @@ static void disp_flush(lv_display_t * disp, const lv_area_t * area, uint8_t * px
 
 void lv_user_gui_init(void)
 {
+#if 1
     /*Change the active screen's background color*/
     lv_obj_set_style_bg_color(lv_screen_active(), lv_color_hex(0x003a57), LV_PART_MAIN);
 
@@ -63,6 +64,7 @@ void lv_user_gui_init(void)
     lv_label_set_text(label, "Hello world");
     lv_obj_set_style_text_color(lv_screen_active(), lv_color_hex(0xffffff), LV_PART_MAIN);
     lv_obj_align(label, LV_ALIGN_CENTER, 0, 0);    
+#endif
 }
 
 void lv_port_disp_init(void)

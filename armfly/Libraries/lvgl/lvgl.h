@@ -126,6 +126,7 @@ extern "C" {
 #include "src/lvgl_private.h"
 #endif
 
+#include "src/lv_port_disp.h"
 /*********************
  *      DEFINES
  *********************/

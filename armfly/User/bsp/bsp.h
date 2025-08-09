@@ -18,6 +18,10 @@
 #ifndef _BSP_H_
 #define _BSP_H_
 
+#ifdef __cplusplus
+extern "C" {
+#endif
+
 #include "stm32f1xx_hal.h"
 #include <stdio.h>
 #include <string.h>
@@ -47,5 +51,9 @@ void System_Init(void);
 void bsp_Init(void);
 
 void Error_Handler(char *file, uint32_t line);
+
+#ifdef __cplusplus
+}
+#endif
 
 #endif

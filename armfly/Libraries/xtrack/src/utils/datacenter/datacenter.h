@@ -20,17 +20,34 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#ifndef __PAGE_H
-#define __PAGE_H
+#ifndef __DATA_CENTER_H
+#define __DATA_CENTER_H
 
-#include "pagemanager.h"
+#include "account.h"
 
-#include "resourcepool.h"
+class DataCenter
+{
+public:
+    /* The name of the data center will be used as the ID of the main account */
+    const char* Name;
 
-#include "lvgl.h"
+    /* Main account, will automatically follow all accounts */
+    Account AccountMain;
 
+public:
+    DataCenter(const char* name);
+    ~DataCenter();
+    bool AddAccount(Account* account);
+    bool RemoveAccount(Account* account);
+    bool Remove(Account::AccountVector_t* vec, Account* account);
+    Account* SearchAccount(const char* id);
+    Account* Find(Account::AccountVector_t* vec, const char* id);
+    uint32_t GetAccountLen();
 
-#define ARRAY_SIZE(arr) (sizeof(arr)/sizeof(arr[0]))
+private:
 
+    /* Account pool */
+    Account::AccountVector_t AccountPool;
+};
 
 #endif

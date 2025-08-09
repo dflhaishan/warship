@@ -73,7 +73,7 @@ void Template::AttachEvent(lv_obj_t* obj)
 
 void Template::Update()
 {
-    lv_label_set_text_fmt(View.ui.labelTick, "tick = %d save = %d", Model.GetData(), Model.TickSave);
+    lv_label_set_text_fmt(View.ui.labelTick, "tick = %lu save = %lu", Model.GetData(), Model.TickSave);
 }
 
 void Template::onTimerUpdate(lv_timer_t* timer)
@@ -88,7 +88,7 @@ void Template::onEvent(lv_event_t* event)
     Template* instance = (Template*)lv_event_get_user_data(event);
     LV_ASSERT_NULL(instance);
 
-    lv_obj_t* obj = lv_event_get_target(event);
+    lv_obj_t* obj = (lv_obj_t*)lv_event_get_target(event);
     lv_event_code_t code = lv_event_get_code(event);
 
     if (obj == instance->root)

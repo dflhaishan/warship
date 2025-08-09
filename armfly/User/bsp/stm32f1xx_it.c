@@ -43,6 +43,7 @@
 
 /* Private variables ---------------------------------------------------------*/
 /* USER CODE BEGIN PV */
+volatile uint32_t SystemTickCount = 0;
 
 /* USER CODE END PV */
 
@@ -171,7 +172,7 @@ void SysTick_Handler(void)
   }
 #endif /* INCLUDE_xTaskGetSchedulerState */
   /* USER CODE BEGIN SysTick_IRQn 1 */
-
+  SystemTickCount++;
   /* USER CODE END SysTick_IRQn 1 */
 }
 
