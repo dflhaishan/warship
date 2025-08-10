@@ -68,13 +68,13 @@ Account::Account(
         memset(buf0, 0, bufSize);
         memset(buf1, 0, bufSize);
         PingPongBuffer_Init(&priv.BufferManager, buf0, buf1);
-        DC_LOG_INFO("Account[%s] cached %d x2 bytes", ID, bufSize);
+        // DC_LOG_INFO("Account[%s] cached %ld x2 bytes", ID, bufSize);
         priv.BufferSize = bufSize;
     }
 
     Center->AddAccount(this);
 
-    DC_LOG_INFO("Account[%s] created", ID);
+    // DC_LOG_INFO("Account[%s] created", ID);
 }
 
 /**
@@ -198,14 +198,14 @@ bool Account::Commit(const void* data_p, uint32_t size)
         return false;
     }
 
-    void* wBuf;
+    uint8_t* wBuf;
     PingPongBuffer_GetWriteBuf(&priv.BufferManager, &wBuf);
 
     memcpy(wBuf, data_p, size);
 
     PingPongBuffer_SetWriteDone(&priv.BufferManager);
 
-    DC_LOG_INFO("pub[%s] commit data(0x%p)[%d] >> data(0x%p)[%d] done",
+    DC_LOG_INFO("pub[%s] commit data(0x%p)[%ld] >> data(0x%p)[%ld] done",
                 ID, data_p, size, wBuf, size);
 
     return true;
@@ -226,7 +226,7 @@ int Account::Publish()
         return RES_NO_CACHE;
     }
 
-    void* rBuf;
+    uint8_t* rBuf;
     if (!PingPongBuffer_GetReadBuf(&priv.BufferManager, &rBuf))
     {
         DC_LOG_WARN("pub[%s] data was not commit", ID);
@@ -246,7 +246,7 @@ int Account::Publish()
         Account* sub = iter;
         EventCallback_t callback = sub->priv.eventCallback;
 
-        DC_LOG_INFO("pub[%s] publish >> data(0x%p)[%d] >> sub[%s]...",
+        DC_LOG_INFO("pub[%s] publish >> data(0x%p)[%ld] >> sub[%s]...",
                     ID, param.data_p, param.size, sub->ID);
 
         if (callback != nullptr)
@@ -295,7 +295,7 @@ int Account::Pull(Account* pub, void* data_p, uint32_t size)
         return RES_NOT_FOUND;
     }
 
-    DC_LOG_INFO("sub[%s] pull << data(0x%p)[%d] << pub[%s] ...",
+    DC_LOG_INFO("sub[%s] pull << data(0x%p)[%ld] << pub[%s] ...",
                 ID, data_p, size, pub->ID);
 
     EventCallback_t callback = pub->priv.eventCallback;
@@ -319,7 +319,7 @@ int Account::Pull(Account* pub, void* data_p, uint32_t size)
 
         if (pub->priv.BufferSize == size)
         {
-            void* rBuf;
+            uint8_t* rBuf;
             if (PingPongBuffer_GetReadBuf(&pub->priv.BufferManager, &rBuf))
             {
                 memcpy(data_p, rBuf, size);
@@ -335,7 +335,7 @@ int Account::Pull(Account* pub, void* data_p, uint32_t size)
         else
         {
             DC_LOG_ERROR(
-                "Data size pub[%s]:%d != sub[%s]:%d",
+                "Data size pub[%s]:%ld != sub[%s]:%ld",
                 pub->ID,
                 pub->priv.BufferSize,
                 this->ID,
@@ -381,7 +381,7 @@ int Account::Notify(Account* pub, const void* data_p, uint32_t size)
         return RES_NOT_FOUND;
     }
 
-    DC_LOG_INFO("sub[%s] notify >> data(0x%p)[%d] >> pub[%s] ...",
+    DC_LOG_INFO("sub[%s] notify >> data(0x%p)[%ld] >> pub[%s] ...",
                 ID, data_p, size, pub->ID);
 
     EventCallback_t callback = pub->priv.eventCallback;

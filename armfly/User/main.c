@@ -20,7 +20,6 @@
 #include "lvgl.h"
 #include "lv_port.h"
 #include "xtrack_app.h"
-#include "delay.h"
 
 /**
  * @brief  The application entry point.
@@ -35,12 +34,12 @@ int main(void)
     
     lv_init();
     lv_port_init();
-    // lv_user_gui_init();
-
+    lv_user_gui_init();
+    
     xtrack_app_init();
     while (1)
     {
-        xtrack_app_update();
+        // xtrack_app_update();
         lv_task_handler();
     }
 }

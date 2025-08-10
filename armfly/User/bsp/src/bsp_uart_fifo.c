@@ -990,13 +990,14 @@ int __io_putchar (int ch)
 
 int _write(int file, char *ptr, int len)
 {
-    for (int i = 0; i < len; i++)
+    int n = 0;
+    while(len--)
     {
-        comSendChar(COM1, *ptr);
-        ptr++;
+        comSendChar(COM1, *ptr++);
+        n++;
     }
 
-    return len;
+    return n;
 }
 
 /*

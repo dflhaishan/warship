@@ -153,7 +153,7 @@ void PageManager::SwitchTo(PageBase* newNode, bool isPushAct, const PageBase::St
             }
             else
             {
-                PM_LOG_INFO("stash(0x%p) malloc[%d]", buffer, stash->size);
+                PM_LOG_INFO("stash(0x%p) malloc[%ld]", buffer, stash->size);
             }
         }
         else if(newNode->priv.Stash.size == stash->size)
@@ -165,7 +165,7 @@ void PageManager::SwitchTo(PageBase* newNode, bool isPushAct, const PageBase::St
         if (buffer != nullptr)
         {
             memcpy(buffer, stash->ptr, stash->size);
-            PM_LOG_INFO("stash memcpy[%d] 0x%p >> 0x%p", stash->size, stash->ptr, buffer);
+            PM_LOG_INFO("stash memcpy[%ld] 0x%p >> 0x%p", stash->size, stash->ptr, buffer);
             newNode->priv.Stash.ptr = buffer;
             newNode->priv.Stash.size = stash->size;
         }

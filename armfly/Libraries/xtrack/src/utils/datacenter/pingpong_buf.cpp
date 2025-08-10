@@ -30,7 +30,7 @@
   * @param  buf1:  Pointer to the second buffer
   * @retval None
   */
-void PingPongBuffer_Init(PingPongBuffer_t* ppbuf, void* buf0, void* buf1)
+void PingPongBuffer_Init(PingPongBuffer_t* ppbuf, uint8_t* buf0, uint8_t* buf1)
 {
     memset(ppbuf, 0, sizeof(PingPongBuffer_t));
     ppbuf->buffer[0] = buf0;
@@ -43,7 +43,7 @@ void PingPongBuffer_Init(PingPongBuffer_t* ppbuf, void* buf0, void* buf1)
   * @param  pReadBuf:  Pointer to the pointer to the buffer to be read
   * @retval Returns true if there is a buffer to be read
   */
-bool PingPongBuffer_GetReadBuf(PingPongBuffer_t* ppbuf, void** pReadBuf)
+bool PingPongBuffer_GetReadBuf(PingPongBuffer_t* ppbuf, uint8_t** pReadBuf)
 {
     if(ppbuf->readAvaliable[0])
     {
@@ -77,7 +77,7 @@ void PingPongBuffer_SetReadDone(PingPongBuffer_t* ppbuf)
   * @param  pWriteBuf:  Pointer to the pointer to the buffer to be wriye
   * @retval None
   */
-void PingPongBuffer_GetWriteBuf(PingPongBuffer_t* ppbuf, void** pWriteBuf)
+void PingPongBuffer_GetWriteBuf(PingPongBuffer_t* ppbuf, uint8_t** pWriteBuf)
 {
     if(ppbuf->writeIndex == ppbuf->readIndex)
     {
