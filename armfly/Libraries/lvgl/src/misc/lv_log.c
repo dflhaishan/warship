@@ -110,6 +110,7 @@ void _lv_log_add(lv_log_level_t level, const char * file, int line, const char *
         last_log_time = t;
         va_end(args);
     }
+    printf("\r\n");
 }
 
 void lv_log(const char * buf)

@@ -36,7 +36,9 @@
         "compare": "cpp",
         "lv_port.h": "c",
         "includes.h": "c",
-        "delay.h": "c"
+        "delay.h": "c",
+        "inttypes.h": "c",
+        "version.h": "c"
     },
     "search.exclude": {
         "**/build": true,

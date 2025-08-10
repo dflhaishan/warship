@@ -25,9 +25,13 @@ do{\
     DataProc::Center()->AccountMain.Notify(#ACT, &info, sizeof(info));\
 }while(0)
 
-void led_update(void)
+void led1_update(void)
 {
     bsp_LedToggle(1);
+}
+
+void led2_update(void)
+{
     bsp_LedToggle(2);
 }
 
@@ -59,12 +63,14 @@ void xtrack_app_init(void)
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
     manager.Push("Pages/Startup");
-
+#if 0
     taskManager.Register(HAL::Power_EventMonitor, 100);
     taskManager.Register(HAL::GPS_Update, 200);
     taskManager.Register(HAL::SD_Update, 500);
     taskManager.Register(HAL::Memory_DumpInfo, 1000);
-    taskManager.Register(led_update, 1000);
+#endif
+    taskManager.Register(led1_update, 5000);
+    taskManager.Register(led2_update, 1000);
 }
 
 void xtrack_app_update(void)
