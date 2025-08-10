@@ -7,6 +7,8 @@
 #include "bsp.h"
 #include "dataproc.h"
 #include "hal.h"
+#include "resourcepool.h"
+#include "statusbar.h"
 
 extern uint32_t SystemTickCount;
 #define SYSTICK_TICK_FREQ       (1000)
@@ -15,13 +17,17 @@ extern uint32_t SystemTickCount;
 
 static MillisTaskManager taskManager;
 
-void LED1_Update()
+#define ACCOUNT_SEND_CMD(ACT, CMD)\
+do{\
+    DataProc::ACT##_Info_t info;\
+    memset(&info, 0, sizeof(info));\
+    info.cmd = DataProc::CMD;\
+    DataProc::Center()->AccountMain.Notify(#ACT, &info, sizeof(info));\
+}while(0)
+
+void led_update(void)
 {
     bsp_LedToggle(1);
-}
-
-void LED2_Update()
-{
     bsp_LedToggle(2);
 }
 
@@ -32,22 +38,33 @@ void xtrack_app_init(void)
 
     DataProc_Init();
 
+    ACCOUNT_SEND_CMD(Storage, STORAGE_CMD_LOAD);
+    ACCOUNT_SEND_CMD(SysConfig, SYSCONFIG_CMD_LOAD);
+
+    lv_obj_t* scr = lv_scr_act();
+    lv_obj_remove_style_all(scr);
+    lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);
+    lv_disp_set_bg_color(lv_disp_get_default(), lv_color_black());
+
+    ResourcePool::Init();
+
+    StatusBar::Init(lv_layer_top());
+
     manager.Install("Template",         "Pages/_Template");
     manager.Install("LiveMap",          "Pages/LiveMap");
     manager.Install("Dialplate",        "Pages/Dialplate");
     manager.Install("SystemInfos",      "Pages/SystemInfos");
-    manager.Install("StartUp",         "Pages/StartUp");
+    manager.Install("Startup",          "Pages/Startup");
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/LiveMap");
+    manager.Push("Pages/Startup");
 
     taskManager.Register(HAL::Power_EventMonitor, 100);
     taskManager.Register(HAL::GPS_Update, 200);
     taskManager.Register(HAL::SD_Update, 500);
     taskManager.Register(HAL::Memory_DumpInfo, 1000);
-    taskManager.Register(LED1_Update, 1000);
-    taskManager.Register(LED2_Update, 500);
+    taskManager.Register(led_update, 1000);
 }
 
 void xtrack_app_update(void)

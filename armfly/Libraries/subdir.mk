@@ -18,7 +18,8 @@ ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c \
 $(shell find ${ARMFLY}/Libraries/lvgl/src/ -type f -name '*.c') \
-$(shell find ${ARMFLY}/Libraries/xtrack/src/ -type f -name '*.c')
+$(shell find ${ARMFLY}/Libraries/xtrack/src/ -type f -name '*.c') \
+${ARMFLY}/Libraries/cm_backtrace/cm_backtrace.c
 
 C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/CMSIS/Device/ST/STM32F1xx/Include \
@@ -58,10 +59,14 @@ C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/xtrack/src/utils/tileconv \
 -I${ARMFLY}/Libraries/xtrack/src/common/dataproc \
 -I${ARMFLY}/Libraries/xtrack/src/common/hal \
--I${ARMFLY}/Libraries/xtrack/src/common/music
+-I${ARMFLY}/Libraries/xtrack/src/common/music \
+-I${ARMFLY}/Libraries/cm_backtrace/ \
+-I${ARMFLY}/Libraries/cm_backtrace/languages/ \
+
 
 ASMM_SOURCES += \
-$(shell find ${ARMFLY}/Libraries/lvgl/src -type f -name '*.S')
+$(shell find ${ARMFLY}/Libraries/lvgl/src -type f -name '*.S') \
+$(shell find ${ARMFLY}/Libraries/cm_backtrace/fault_handler/gcc -type f -name '*.S')
 
 AS_INCLUDES += \
 -I${ARMFLY}/Libraries/lvgl

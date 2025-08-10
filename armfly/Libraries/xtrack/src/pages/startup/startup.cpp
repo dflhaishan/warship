@@ -1,4 +1,5 @@
 #include "startup.h"
+#include "statusbar.h"
 
 using namespace Page;
 
@@ -20,6 +21,8 @@ void Startup::onCustomAttrConfig()
 
 void Startup::onViewLoad()
 {
+    Model.Init();
+    Model.SetEncoderEnable(false);
     View.Create(root);
     lv_timer_t* timer = lv_timer_create(onTimer, 2000, this);
     lv_timer_set_repeat_count(timer, 1);    
@@ -32,6 +35,7 @@ void Startup::onViewDidLoad()
 
 void Startup::onViewWillAppear()
 {
+    Model.PlayMusic("Startup");
     lv_anim_timeline_start(View.ui.anim_timeline);
 }
 
@@ -47,13 +51,15 @@ void Startup::onViewWillDisappear()
 
 void Startup::onViewDidDisappear()
 {
-    // StatusBar::Appear(true);
+    StatusBar::Appear(true);
 }
 
 
 void Startup::onViewDidUnload()
 {
     View.Delete();
+    Model.SetEncoderEnable(true);
+    Model.Deinit();
 }
 
 void Startup::onTimer(lv_timer_t* timer)

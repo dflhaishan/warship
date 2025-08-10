@@ -1,19 +1,19 @@
-#ifndef __STARTUP_PRESENTER_H
-#define __STARTUP_PRESENTER_H
+#ifndef __SYSTEM_INFOS_PRESENTER_H
+#define __SYSTEM_INFOS_PRESENTER_H
 
-#include "startup_view.h"
-#include "startup_model.h"
+#include "systeminfos_view.h"
+#include "systeminfos_model.h"
 
 namespace Page
 {
 
-class Startup : public PageBase
+class SystemInfos : public PageBase
 {
 public:
 
 public:
-    Startup();
-    virtual ~Startup();
+    SystemInfos();
+    virtual ~SystemInfos();
 
     virtual void onCustomAttrConfig();
     virtual void onViewLoad();
@@ -25,12 +25,15 @@ public:
     virtual void onViewDidUnload();
 
 private:
-    static void onTimer(lv_timer_t* timer);
+    void Update();
+    void AttachEvent(lv_obj_t* obj);
+    static void onTimerUpdate(lv_timer_t* timer);
     static void onEvent(lv_event_t* event);
 
 private:
-    StartupView View;
-    StartupModel Model;
+    SystemInfosView View;
+    SystemInfosModel Model;
+    lv_timer_t* timer;
 };
 
 }
