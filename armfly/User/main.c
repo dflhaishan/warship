@@ -18,26 +18,9 @@
 #include "includes.h"
 #include "bsp.h"
 #include "lvgl.h"
+#include "lv_port.h"
 #include "xtrack_app.h"
-
-#define START_TASK_PRIO     1
-#define START_STK_SIZE      128
-#define LED_TASK_PRIO       2
-#define LED_STK_SIZE        128
-#define LVGL_TASK_PRIO      2
-#define LVGL_STK_SIZE       1024
-
-TaskHandle_t StartTask_Handler;
-void AppTaskStart(void *argument);
-
-TaskHandle_t LEDTask_Handler;
-void AppTaskLED(void *argument);
-TaskHandle_t LVGLTask_Handler;
-void AppTaskLVGL(void *argument);
-
-static void AppTaskCreate(void);
-
-
+#include "delay.h"
 
 /**
  * @brief  The application entry point.
@@ -49,76 +32,15 @@ int main(void)
     System_Init();
 
     bsp_Init();
-#if 0
-    xTaskCreate(AppTaskStart, "AppTaskStart", START_STK_SIZE, NULL, START_TASK_PRIO, &StartTask_Handler);
-
-    vTaskStartScheduler();
-    while (1)
-    {
-    }
-#else
+    
     lv_init();
-    lv_tick_set_cb(xTaskGetTickCount);
-    lv_port_disp_init();
-    lv_user_gui_init();
-    xtrack_app_init();
+    lv_port_init();
+    // lv_user_gui_init();
 
+    xtrack_app_init();
     while (1)
     {
         xtrack_app_update();
         lv_task_handler();
     }
-#endif
 }
-
-/*
-*********************************************************************************************************
-*	函 数 名: AppTaskStart
-*	功能说明: 启动任务，这里用作BSP驱动包处理。
-*	形    参: 无
-*	返 回 值: 无
-*   优 先 级: osPriorityNormal6  
-*********************************************************************************************************
-*/
-void AppTaskStart(void *argument)
-{	
-	/* 初始化外设 */
-	bsp_Init();
-
-	/* 创建任务 */
-	AppTaskCreate();
-
-	vTaskDelete(StartTask_Handler);
-}
-
-void AppTaskCreate()
-{
-    xTaskCreate(AppTaskLED, "AppTaskLED", LED_STK_SIZE, NULL, LED_TASK_PRIO, &LEDTask_Handler);
-    xTaskCreate(AppTaskLVGL, "AppTaskLVGL", LVGL_STK_SIZE, NULL, LVGL_STK_SIZE, &LVGLTask_Handler);
-}
-
-void AppTaskLED(void *pvParameters)
-{
-    while (1)
-    {
-        bsp_LedToggle(1);
-        bsp_LedToggle(2);
-        printf("led toggle\r\n");
-        vTaskDelay(1000);
-    }
-}
-
-void AppTaskLVGL(void *pvParameters)
-{
-    lv_init();
-    lv_tick_set_cb(xTaskGetTickCount);
-    lv_port_disp_init();
-    lv_user_gui_init();
-    xtrack_app_init();
-    while (1)
-    {
-        lv_timer_handler();
-        vTaskDelay(10);
-    }
-}
-

@@ -988,6 +988,17 @@ int __io_putchar (int ch)
 #endif
 }
 
+int _write(int file, char *ptr, int len)
+{
+    for (int i = 0; i < len; i++)
+    {
+        comSendChar(COM1, *ptr);
+        ptr++;
+    }
+
+    return len;
+}
+
 /*
 *********************************************************************************************************
 *	函 数 名: fgetc

@@ -17,7 +17,7 @@ ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c \
-$(shell find ${ARMFLY}/Libraries/lvgl/ -type f -name '*.c') \
+$(shell find ${ARMFLY}/Libraries/lvgl/src/ -type f -name '*.c') \
 $(shell find ${ARMFLY}/Libraries/xtrack/src/ -type f -name '*.c')
 
 C_INCLUDES +=  \
@@ -54,16 +54,18 @@ C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/xtrack/src/utils/tinygps \
 -I${ARMFLY}/Libraries/xtrack/src/utils/arduinoapi \
 -I${ARMFLY}/Libraries/xtrack/src/utils/lv_ext \
+-I${ARMFLY}/Libraries/xtrack/src/utils/lv_poly_line \
+-I${ARMFLY}/Libraries/xtrack/src/utils/tileconv \
 -I${ARMFLY}/Libraries/xtrack/src/common/dataproc \
 -I${ARMFLY}/Libraries/xtrack/src/common/hal \
 -I${ARMFLY}/Libraries/xtrack/src/common/music
 
 ASMM_SOURCES += \
-$(shell find ${ARMFLY}/Libraries/lvgl/ -type f -name '*.S')
+$(shell find ${ARMFLY}/Libraries/lvgl/src -type f -name '*.S')
 
 AS_INCLUDES += \
 -I${ARMFLY}/Libraries/lvgl
 
 CPP_SOURCES += \
-$(shell find ${ARMFLY}/Libraries/lvgl/ -type f -name '*.cpp') \
+$(shell find ${ARMFLY}/Libraries/lvgl/src/ -type f -name '*.cpp') \
 $(shell find ${ARMFLY}/Libraries/xtrack/src/ -type f -name '*.cpp')

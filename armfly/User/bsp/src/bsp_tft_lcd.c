@@ -257,7 +257,6 @@ static void InitHardLcd(void)
     GPIO_InitTypeDef GPIO_InitStruct;
     FSMC_NORSRAM_TimingTypeDef FSMC_R_Tim;
     FSMC_NORSRAM_TimingTypeDef FSMC_W_Tim;
-
 	FONT_T tFont16;			/* 定义一个字体结构体变量，用于设置字体参数 */
 
 	/* 设置字体参数 */
@@ -267,7 +266,6 @@ static void InitHardLcd(void)
 		tFont16.BackColor = CL_WHITE;	/* 文字背景颜色 */
 		tFont16.Space = 0;			/* 文字间距，单位 = 像素 */
 	}
-
     /* 背光灯 */
     __HAL_RCC_GPIOB_CLK_ENABLE();
     GPIO_InitStruct.Pin = GPIO_PIN_0;
