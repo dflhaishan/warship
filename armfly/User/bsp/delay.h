@@ -1,6 +1,6 @@
 /*
  * MIT License
- * Copyright (c) 2021 _VIFEXTech
+ * Copyright (c) 2019 - 2021 _VIFEXTech
  *
  * Permission is hereby granted, free of charge, to any person obtaining a copy
  * of this software and associated documentation files (the "Software"), to deal
@@ -20,28 +20,22 @@
  * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  * SOFTWARE.
  */
-#include "appfactory.h"
-#include "template.h"
-#include "livemap.h"
-// #include "Dialplate/Dialplate.h"
-// #include "SystemInfos/SystemInfos.h"
-// #include "Startup/Startup.h"
+#ifndef __DELAY_H
+#define __DELAY_H
 
-#define APP_CLASS_MATCH(className)\
-do{\
-    if (strcmp(name, #className) == 0)\
-    {\
-        return new Page::className;\
-    }\
-}while(0)
+#include <stdint.h>
 
-PageBase* AppFactory::CreatePage(const char* name)
-{
-    APP_CLASS_MATCH(Template);
-    APP_CLASS_MATCH(LiveMap);
-    // APP_CLASS_MATCH(Dialplate);
-    // APP_CLASS_MATCH(SystemInfos);
-    // APP_CLASS_MATCH(Startup);
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-    return nullptr;
+uint32_t millis(void);
+uint32_t micros(void);
+void delay_ms(uint32_t ms);
+void delay_us(uint32_t us);
+
+#ifdef __cplusplus
 }
+#endif
+
+#endif /* __DELAY_H */

@@ -40,7 +40,7 @@ void xtrack_app_init(void)
 
     manager.SetGlobalLoadAnimType(PageManager::LOAD_ANIM_OVER_TOP, 500);
 
-    manager.Push("Pages/Startup");
+    manager.Push("Pages/LiveMap");
 
     taskManager.Register(HAL::Power_EventMonitor, 100);
     taskManager.Register(HAL::GPS_Update, 200);

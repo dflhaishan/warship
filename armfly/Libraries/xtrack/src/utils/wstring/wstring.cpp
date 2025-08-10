@@ -28,8 +28,8 @@
 #  define WS_MEM_FREE(ptr)              free(ptr)
 #else
 #include "lvgl.h"
-#  define WS_MEM_REALLOC(ptr, new_size) lv_realloc(ptr, new_size)
-#  define WS_MEM_FREE(ptr)              lv_free(ptr) 
+#  define WS_MEM_REALLOC(ptr, new_size) lv_mem_realloc(ptr, new_size)
+#  define WS_MEM_FREE(ptr)              lv_mem_free(ptr) 
 #endif
 
 // #define ultoa  _ultoa_s

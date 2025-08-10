@@ -26,7 +26,7 @@ void HAL::Audio_Update()
 bool HAL::Audio_PlayMusic(const char* name)
 {
     bool retval = false;
-    for (int i = 0; i < sizeof(MusicList) / sizeof(MusicList[0]); i++)
+    for (unsigned int i = 0; i < sizeof(MusicList) / sizeof(MusicList[0]); i++)
     {
         if (strcmp(name, MusicList[i].name) == 0)
         {

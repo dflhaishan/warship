@@ -84,7 +84,7 @@ void PointContainer::PushFullPoint(const FullPoint_t* point)
 {
     vecPoints.push_back(MakeFlag(FLAG_FULL_POINT));
     const DiffPoint_t* pData = (const DiffPoint_t*)point;
-    for (int i = 0; i < sizeof(FullPoint_t) / sizeof(DiffPoint_t); i++)
+    for (unsigned int i = 0; i < sizeof(FullPoint_t) / sizeof(DiffPoint_t); i++)
     {
         vecPoints.push_back(pData[i]);
     }
@@ -99,7 +99,7 @@ bool PointContainer::PopFullPoint(FullPoint_t* point)
     }
 
     DiffPoint_t* pData = (DiffPoint_t*)point;
-    for (int i = 0; i < sizeof(FullPoint_t) / sizeof(DiffPoint_t); i++)
+    for (unsigned int i = 0; i < sizeof(FullPoint_t) / sizeof(DiffPoint_t); i++)
     {
         pData[i] = vecPoints[priv.curPopIndex];
         priv.curPopIndex++;
