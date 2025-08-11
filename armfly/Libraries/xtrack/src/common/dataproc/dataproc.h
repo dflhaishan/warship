@@ -8,6 +8,7 @@
 #define DATA_PROC_INIT_DEF(name) void _DP_##name##_Init(Account* account)
 
 void DataProc_Init();
+void _DP_Storage_Init(Account* account);
 
 namespace DataProc
 {

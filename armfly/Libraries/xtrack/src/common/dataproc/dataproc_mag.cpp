@@ -1,7 +1,7 @@
 #include "dataproc.h"
 #include "hal.h"
 
-DATA_PROC_INIT_DEF(MAG)
+void _DP_MAG_Init(Account* account)
 {
     HAL::MAG_SetCommitCallback([](void* info, void* userData){
         Account* account = (Account*)userData;

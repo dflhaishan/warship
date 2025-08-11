@@ -3,8 +3,8 @@
 #include "hal.h"
 #include "bsp_tft_lcd.h"
 
-#define CONFIG_SCREEN_HOR_RES    480
-#define CONFIG_SCREEN_VER_RES    800
+#define CONFIG_SCREEN_HOR_RES    240
+#define CONFIG_SCREEN_VER_RES    240
 #define CONFIG_SCREEN_BUFFER_SIZE   (CONFIG_SCREEN_HOR_RES * CONFIG_SCREEN_VER_RES)
 
 

@@ -216,7 +216,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return retval;
 }
 
-DATA_PROC_INIT_DEF(Recorder)
+void _DP_Recorder_Init(Account* account)
 {
     static Recorder_t recorder;
     memset(&recorder.recInfo, 0, sizeof(recorder.recInfo));

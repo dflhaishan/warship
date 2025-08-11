@@ -125,7 +125,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return retval;
 }
 
-DATA_PROC_INIT_DEF(TrackFilter)
+void _DP_TrackFilter_Init(Account* account)
 {
     account->Subscribe("GPS");
     account->SetEventCallback(onEvent);

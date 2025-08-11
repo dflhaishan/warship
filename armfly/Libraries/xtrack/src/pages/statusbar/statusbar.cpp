@@ -303,7 +303,7 @@ void StatusBar::Init(lv_obj_t* par)
     StatusBar_Create(par);
 }
 
-DATA_PROC_INIT_DEF(StatusBar)
+void _DP_StatusBar_Init(Account* account)
 {
     account->Subscribe("GPS");
     account->Subscribe("Power");

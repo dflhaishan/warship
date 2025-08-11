@@ -313,8 +313,8 @@ static void InitHardLcd(void)
 
     LCD_SetDirection(0);
     HAL_GPIO_WritePin(GPIOB, GPIO_PIN_0, SET);  //点亮背光
-    LCD_ClrScr(CL_RED);
-    LCD_DispStr(200, 400, "Touch Calibration", &tFont16);
+    LCD_ClrScr(CL_WHITE);
+    // LCD_DispStr(200, 400, "Touch Calibration", &tFont16);
 }
 
 /*

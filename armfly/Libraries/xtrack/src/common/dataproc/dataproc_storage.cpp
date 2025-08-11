@@ -197,7 +197,7 @@ static void onSDEvent(bool insert)
     }
 }
 
-DATA_PROC_INIT_DEF(Storage)
+void _DP_Storage_Init(Account* account)
 {
     account->SetEventCallback(onEvent);
     account->Subscribe("SysConfig");

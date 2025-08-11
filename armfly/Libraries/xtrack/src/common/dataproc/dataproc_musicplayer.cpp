@@ -20,7 +20,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return 0;
 }
 
-DATA_PROC_INIT_DEF(MusicPlayer)
+void _DP_MusicPlayer_Init(Account* account)
 {
     account->SetEventCallback(onEvent);
 }

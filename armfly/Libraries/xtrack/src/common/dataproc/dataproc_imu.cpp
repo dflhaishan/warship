@@ -1,7 +1,7 @@
 #include "dataproc.h"
 #include "hal.h"
 
-DATA_PROC_INIT_DEF(IMU)
+void _DP_IMU_Init(Account* account)
 {
     HAL::IMU_SetCommitCallback([](void* info, void* userData){
         Account* account = (Account*)userData;
