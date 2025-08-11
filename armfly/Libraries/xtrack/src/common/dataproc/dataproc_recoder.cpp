@@ -216,6 +216,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return retval;
 }
 
+#if 1
 void _DP_Recorder_Init(Account* account)
 {
     static Recorder_t recorder;
@@ -230,3 +231,19 @@ void _DP_Recorder_Init(Account* account)
     account->Subscribe("TrackFilter");
     account->SetEventCallback(onEvent);
 }
+#else
+DATA_PROC_INIT_DEF(Recorder)
+{
+    static Recorder_t recorder;
+    memset(&recorder.recInfo, 0, sizeof(recorder.recInfo));
+    memset(&recorder.file, 0, sizeof(recorder.file));
+    recorder.active = false;
+    recorder.account = account;
+    account->UserData = &recorder;
+
+    account->Subscribe("GPS");
+    account->Subscribe("Clock");
+    account->Subscribe("TrackFilter");
+    account->SetEventCallback(onEvent);
+}
+#endif

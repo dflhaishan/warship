@@ -103,6 +103,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return 0;
 }
 
+#if 1
 void _DP_SportStatus_Init(Account* account)
 {
     memset(&sportStatus, 0, sizeof(sportStatus));
@@ -122,3 +123,24 @@ void _DP_SportStatus_Init(Account* account)
     account->SetEventCallback(onEvent);
     account->SetTimerPeriod(500);
 }
+#else
+DATA_PROC_INIT_DEF(SportStatus)
+{
+    memset(&sportStatus, 0, sizeof(sportStatus));
+    sportStatus.weight = CONFIG_WEIGHT_DEFAULT;
+
+    account->Subscribe("GPS");
+    account->Subscribe("Storage");
+
+    STORAGE_VALUE_REG(account, sportStatus.totalDistance, STORAGE_TYPE_FLOAT);
+    STORAGE_VALUE_REG(account, sportStatus.totalTimeUINT32[0], STORAGE_TYPE_INT);
+    STORAGE_VALUE_REG(account, sportStatus.totalTimeUINT32[1], STORAGE_TYPE_INT);
+    STORAGE_VALUE_REG(account, sportStatus.speedMaxKph, STORAGE_TYPE_FLOAT);
+    STORAGE_VALUE_REG(account, sportStatus.weight, STORAGE_TYPE_FLOAT);
+
+    sportStatus.lastTick = DataProc::GetTick();
+
+    account->SetEventCallback(onEvent);
+    account->SetTimerPeriod(500);
+}
+#endif

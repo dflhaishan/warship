@@ -38,7 +38,8 @@
         "includes.h": "c",
         "delay.h": "c",
         "inttypes.h": "c",
-        "version.h": "c"
+        "version.h": "c",
+        "new": "cpp"
     },
     "search.exclude": {
         "**/build": true,

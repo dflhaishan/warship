@@ -1,5 +1,6 @@
 #include "dataproc.h"
 #include "hal.h"
+#include "datacenter_log.h"
 
 static DataCenter center("CENTER");
 
@@ -8,6 +9,7 @@ DataCenter* DataProc::Center()
     return &center;
 }
 
+#if 1
 void DataProc_Init()
 {
     Account* actStorage = new Account("Storage", &center, 0);
@@ -25,16 +27,36 @@ void DataProc_Init()
     Account* actTrackFilter = new Account("TrackFilter", &center, 0);    
 
     _DP_Storage_Init(actStorage);
-    _DP_Storage_Init(actClock);
-    _DP_Storage_Init(actGPS);
-    _DP_Storage_Init(actPower);
-    _DP_Storage_Init(actSportStatus);
-    _DP_Storage_Init(actRecorder);
-    _DP_Storage_Init(actIMU);
-    _DP_Storage_Init(actMAG);
-    _DP_Storage_Init(actStatusBar);
-    _DP_Storage_Init(actMusicPlayer);
-    _DP_Storage_Init(actTzConv);
-    _DP_Storage_Init(actSysConfig);
-    _DP_Storage_Init(actTrackFilter);
+    _DP_Clock_Init(actClock);
+    _DP_GPS_Init(actGPS);
+    _DP_Power_Init(actPower);
+    _DP_SportStatus_Init(actSportStatus);
+    _DP_Recorder_Init(actRecorder);
+    _DP_IMU_Init(actIMU);
+    _DP_MAG_Init(actMAG);
+    _DP_StatusBar_Init(actStatusBar);
+    _DP_MusicPlayer_Init(actMusicPlayer);
+    _DP_TzConv_Init(actTzConv);
+    _DP_SysConfig_Init(actSysConfig);
+    _DP_TrackFilter_Init(actTrackFilter);
 }
+#else
+
+void DataProc_Init()
+{
+#define DP_DEF(NODE_NAME, BUFFER_SIZE)\
+    Account* act##NODE_NAME = new Account(#NODE_NAME, &center, BUFFER_SIZE);
+#  include "dp_list.inc"
+#undef DP_DEF
+
+#define DP_DEF(NODE_NAME, BUFFER_SIZE)\
+do{\
+    DATA_PROC_INIT_DEF(NODE_NAME);\
+    _DP_##NODE_NAME##_Init(act##NODE_NAME);\
+}while(0)
+#  include "dp_list.inc"
+#undef DP_DEF
+
+}
+
+#endif

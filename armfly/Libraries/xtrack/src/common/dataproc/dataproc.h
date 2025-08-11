@@ -9,7 +9,18 @@
 
 void DataProc_Init();
 void _DP_Storage_Init(Account* account);
-
+void _DP_Clock_Init(Account* account);
+void _DP_GPS_Init(Account* account);
+void _DP_Power_Init(Account* account);
+void _DP_SportStatus_Init(Account* account);
+void _DP_Recorder_Init(Account* account);
+void _DP_IMU_Init(Account* account);
+void _DP_MAG_Init(Account* account);
+void _DP_StatusBar_Init(Account* account);
+void _DP_MusicPlayer_Init(Account* account);
+void _DP_TzConv_Init(Account* account);
+void _DP_SysConfig_Init(Account* account);
+void _DP_TrackFilter_Init(Account* account);
 namespace DataProc
 {
 

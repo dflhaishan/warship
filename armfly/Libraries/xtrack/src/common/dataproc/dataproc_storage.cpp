@@ -197,9 +197,18 @@ static void onSDEvent(bool insert)
     }
 }
 
+#if 1
 void _DP_Storage_Init(Account* account)
 {
     account->SetEventCallback(onEvent);
     account->Subscribe("SysConfig");
     HAL::SD_SetEventCallback(onSDEvent);
 }
+#else
+DATA_PROC_INIT_DEF(Storage)
+{
+    account->SetEventCallback(onEvent);
+    account->Subscribe("SysConfig");
+    HAL::SD_SetEventCallback(onSDEvent);
+}
+#endif

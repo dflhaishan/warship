@@ -125,6 +125,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return retval;
 }
 
+#if 1
 void _DP_TrackFilter_Init(Account* account)
 {
     account->Subscribe("GPS");
@@ -138,3 +139,18 @@ void _DP_TrackFilter_Init(Account* account)
 
     trackFilter.pointFilter.SetOffsetThreshold(CONFIG_TRACK_FILTER_OFFSET_THRESHOLD);
 }
+#else
+DATA_PROC_INIT_DEF(TrackFilter)
+{
+    account->Subscribe("GPS");
+    account->SetEventCallback(onEvent);
+
+    trackFilter.pointContainer = nullptr;
+    trackFilter.isActive = false;
+    trackFilter.isStarted = false;
+
+    trackFilter.mapConv.SetLevel(CONFIG_LIVE_MAP_LEVEL_DEFAULT);
+
+    trackFilter.pointFilter.SetOffsetThreshold(CONFIG_TRACK_FILTER_OFFSET_THRESHOLD);
+}
+#endif

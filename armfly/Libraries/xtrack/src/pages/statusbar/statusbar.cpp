@@ -303,6 +303,7 @@ void StatusBar::Init(lv_obj_t* par)
     StatusBar_Create(par);
 }
 
+#if 1
 void _DP_StatusBar_Init(Account* account)
 {
     account->Subscribe("GPS");
@@ -313,6 +314,18 @@ void _DP_StatusBar_Init(Account* account)
 
     actStatusBar = account;
 }
+#else
+DATA_PROC_INIT_DEF(StatusBar)
+{
+    account->Subscribe("GPS");
+    account->Subscribe("Power");
+    account->Subscribe("Clock");
+    account->Subscribe("Storage");
+    account->SetEventCallback(onEvent);
+
+    actStatusBar = account;
+}
+#endif
 
 void StatusBar::Appear(bool en)
 {

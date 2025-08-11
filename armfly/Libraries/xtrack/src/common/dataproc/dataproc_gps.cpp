@@ -77,6 +77,7 @@ static int onEvent(Account* account, Account::EventParam_t* param)
     return 0;
 }
 
+#if 1
 void _DP_GPS_Init(Account* account)
 {
     account->Subscribe("MusicPlayer");
@@ -84,3 +85,12 @@ void _DP_GPS_Init(Account* account)
     account->SetEventCallback(onEvent);
     account->SetTimerPeriod(CONFIG_GPS_REFR_PERIOD);
 }
+#else
+DATA_PROC_INIT_DEF(GPS)
+{
+    account->Subscribe("MusicPlayer");
+
+    account->SetEventCallback(onEvent);
+    account->SetTimerPeriod(CONFIG_GPS_REFR_PERIOD);
+}
+#endif
