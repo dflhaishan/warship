@@ -112,7 +112,7 @@ static bool onLoad(Account* account)
         MapConv::GetLevelMin(),
         MapConv::GetLevelMax()
     );
-    LV_LOG_USER("Map ext name: *.%s", sysConfig.mapExtName);
+LV_LOG_USER("Map ext name: *.%s", sysConfig.mapExtName);
 #if CONFIG_MAP_PNG_DECODE_ENABLE
     LV_LOG_USER("Map PNG decoder enable");
 #endif

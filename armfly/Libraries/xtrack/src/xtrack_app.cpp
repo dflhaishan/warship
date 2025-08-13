@@ -41,10 +41,33 @@ void xtrack_app_init(void)
     static PageManager manager(&factory);
 
     DataProc_Init();
-
+#if 0
+#define ACCOUNT_SEND_CMD(ACT, CMD)\
+do{\
+    DataProc::ACT##_Info_t info;\
+    memset(&info, 0, sizeof(info));\
+    info.cmd = DataProc::CMD;\
+    DataProc::Center()->AccountMain.Notify(#ACT, &info, sizeof(info));\
+}while(0)
     ACCOUNT_SEND_CMD(Storage, STORAGE_CMD_LOAD);
     ACCOUNT_SEND_CMD(SysConfig, SYSCONFIG_CMD_LOAD);
+#else
+    do
+    {
+        DataProc::Storage_Info_t info;
+        memset(&info, 0, sizeof(info));
+        info.cmd = DataProc::STORAGE_CMD_LOAD;
+        DataProc::Center()->AccountMain.Notify("Storage", &info, sizeof(info));
+    }while(0);
 
+    do
+    {
+        DataProc::SysConfig_Info_t info;
+        memset(&info, 0, sizeof(info));
+        info.cmd = DataProc::SYSCONFIG_CMD_LOAD;
+        DataProc::Center()->AccountMain.Notify("SysConfig", &info, sizeof(info));
+    }while(0);
+#endif
     lv_obj_t* scr = lv_scr_act();
     lv_obj_remove_style_all(scr);
     lv_obj_clear_flag(scr, LV_OBJ_FLAG_SCROLLABLE);

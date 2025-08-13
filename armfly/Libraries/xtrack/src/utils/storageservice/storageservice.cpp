@@ -184,33 +184,31 @@ bool StorageService::LoadFile()
 
         switch (iter->type)
         {
-        case TYPE_INT:
-        {
-            DOC_TO_VALUE(int);
-            break;
-        }
-        case TYPE_FLOAT:
-        {
-            DOC_TO_VALUE(float);
-            break;
-        }
-        case TYPE_DOUBLE:
-        {
-            DOC_TO_VALUE(double);
-            break;
-        }
-        case TYPE_STRING:
-        {
-            const char* str = doc[iter->key];
-            if (str)
+            case TYPE_INT:
+                DOC_TO_VALUE(int);
+                break;
+
+            case TYPE_FLOAT:
+                DOC_TO_VALUE(float);
+                break;
+
+            case TYPE_DOUBLE:
+                DOC_TO_VALUE(double);
+                break;
+
+            case TYPE_STRING:
             {
-                strncpy((char*)iter->value, str, iter->size);
+                const char* str = doc[iter->key];
+                if (str)
+                {
+                    strncpy((char*)iter->value, str, iter->size);
+                }
             }
-            break;
-        }
-        default:
-            LV_LOG_ERROR("Unknow type: %d", iter->type);
-            break;
+                break;
+                
+            default:
+                LV_LOG_ERROR("Unknow type: %d", iter->type);
+                break;
         }
     }
 
