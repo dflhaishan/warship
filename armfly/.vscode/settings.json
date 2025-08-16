@@ -44,4 +44,5 @@
     "search.exclude": {
         "**/build": true,
     },
+    "cortex-debug.variableUseNaturalFormat": false,
 }

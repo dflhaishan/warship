@@ -9,6 +9,7 @@
             "type": "cortex-debug",
             "runToEntryPoint": "main",
             "servertype": "openocd",
+            "device": "stm32f1",
             "configFiles": [
                 "${workspaceFolder}/tools/openocd/interface/stlink.cfg",
                 "${workspaceFolder}/tools/openocd/target/stm32f1x.cfg"
@@ -16,7 +17,7 @@
             "armToolchainPath": "${workspaceFolder}/tools/toolchain/arm-gnu-toolchain-13.3.rel1-x86_64-arm-none-eabi/bin",
             "showDevDebugOutput": "raw",
             "svdFile": "${workspaceFolder}/tools/debug/svd/STM32F103xx.svd",
-            "preLaunchTask": "Build",
+            //"preLaunchTask": "Build",
         }
     ]
 }
