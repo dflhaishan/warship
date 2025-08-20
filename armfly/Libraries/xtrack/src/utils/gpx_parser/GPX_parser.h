@@ -4,7 +4,7 @@
 #ifdef  ARDUINO
 #include "Stream.h"
 #else
-#include "stream.h"
+#include "Stream.h"
 #endif //  ARDUINO
 
 class GPX_Parser : public Stream

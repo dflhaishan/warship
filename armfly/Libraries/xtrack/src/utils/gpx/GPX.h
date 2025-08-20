@@ -34,7 +34,7 @@
 #ifdef  ARDUINO
 #include "WString.h"
 #else
-#include "wstring.h"
+#include "WString.h"
 #endif //  ARDUINO
 
 // 'Public' Tags

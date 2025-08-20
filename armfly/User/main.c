@@ -22,12 +22,14 @@
 #include "xtrack_app.h"
 #include "cm_backtrace.h"
 #include "version.h"
+
 /**
  * @brief  The application entry point.
  * @retval int
  */
 int main(void)
 {
+#if 0
     /* HAL库，时钟等系统初始化 */
     System_Init();
 
@@ -44,4 +46,11 @@ int main(void)
         xtrack_app_update();
         lv_task_handler();
     }
+#else
+    xtrack_app_init();
+    while(1)
+    {
+        
+    }
+#endif
 }

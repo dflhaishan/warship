@@ -69,6 +69,8 @@
 /*#define HAL_USART_MODULE_ENABLED   */
 /*#define HAL_WWDG_MODULE_ENABLED   */
 
+#define HAL_ADC_MODULE_ENABLED
+#define HAL_DAC_MODULE_ENABLED
 #define HAL_CORTEX_MODULE_ENABLED
 #define HAL_DMA_MODULE_ENABLED
 #define HAL_FLASH_MODULE_ENABLED
@@ -80,6 +82,7 @@
 #define HAL_UART_MODULE_ENABLED
 #define HAL_NOR_MODULE_ENABLED
 #define HAL_SRAM_MODULE_ENABLED
+#define HAL_TIM_MODULE_ENABLED
 
 /* ########################## Oscillator Values adaptation ####################*/
 /**

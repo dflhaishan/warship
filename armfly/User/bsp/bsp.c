@@ -142,7 +142,7 @@ void SystemClock_Config(void)
 */
 void bsp_Init(void)
 {
-	bsp_InitUart();		/* 初始化串口 */
+	// bsp_InitUart();		/* 初始化串口 */
     bsp_InitLed();      /* 初始化指示灯 */
     bsp_InitLcd();      /* 初始化lcd */
 }

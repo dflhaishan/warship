@@ -39,7 +39,10 @@
         "delay.h": "c",
         "inttypes.h": "c",
         "version.h": "c",
-        "new": "cpp"
+        "new": "cpp",
+        "stm32f1xx_ll_rcc.h": "c",
+        "arduino.h": "c",
+        "print.h": "c"
     },
     "search.exclude": {
         "**/build": true,

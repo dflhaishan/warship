@@ -16,12 +16,27 @@ ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_msp.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_adc.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dac.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.c \
 ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_i2c.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_pwr.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_sdmmc.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.c \
+${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.c \
 $(shell find ${ARMFLY}/Libraries/lvgl/src/ -type f -name '*.c') \
 $(shell find ${ARMFLY}/Libraries/xtrack/src/ -type f -name '*.c') \
 ${ARMFLY}/Libraries/cm_backtrace/cm_backtrace.c \
 ${ARMFLY}/Libraries/arduino_core/board.c \
-${ARMFLY}/Libraries/arduino_core/core_debug.c \
 ${ARMFLY}/Libraries/arduino_core/core_debug.c \
 ${ARMFLY}/Libraries/arduino_core/hooks.c \
 ${ARMFLY}/Libraries/arduino_core/itoa.c \
@@ -43,9 +58,9 @@ ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/otp.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/pinmap.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/PortNames.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/stm32_def.c \
-${ARMFLY}/Libraries/arduino_core/srcwrapper/src/system_stm32yyxx.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/timer.c \
-${ARMFLY}/Libraries/arduino_core/srcwrapper/src/uart.c
+${ARMFLY}/Libraries/arduino_core/srcwrapper/src/uart.c \
+${ARMFLY}/Libraries/arduino_core/srcwrapper/src/syscalls.c
 
 C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/CMSIS/Device/ST/STM32F1xx/Include \

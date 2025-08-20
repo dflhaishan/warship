@@ -9,6 +9,8 @@
 #include "hal.h"
 #include "resourcepool.h"
 #include "statusbar.h"
+#include "Arduino.h"
+#include "WSerial.h"
 
 extern uint32_t SystemTickCount;
 #define SYSTICK_TICK_FREQ       (1000)
@@ -37,6 +39,7 @@ void led2_update(void)
 
 void xtrack_app_init(void)
 {
+#if 0
     static AppFactory factory;
     static PageManager manager(&factory);
 
@@ -84,6 +87,11 @@ void xtrack_app_init(void)
 #endif
     taskManager.Register(led1_update, 5000);
     taskManager.Register(led2_update, 1000);
+#else
+    Serial.begin(115200);
+    Serial.println("hello world");
+    Serial.print("this is a test\r\n");
+#endif
 }
 
 void xtrack_app_update(void)
