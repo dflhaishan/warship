@@ -15,13 +15,9 @@
  ******************************************************************************
  */
 
-#include "includes.h"
-#include "bsp.h"
-#include "lvgl.h"
-#include "lv_port.h"
 #include "xtrack_app.h"
-#include "cm_backtrace.h"
-#include "version.h"
+#include "lvgl.h"
+#include "hw_config.h"
 
 /**
  * @brief  The application entry point.
@@ -29,16 +25,7 @@
  */
 int main(void)
 {
-#if 0
-    /* HAL库，时钟等系统初始化 */
-    System_Init();
-
-    bsp_Init();
-
-    cm_backtrace_init(VERSION_FIRMWARE_NAME, VERSION_HARDWARE, VERSION_SOFTWARE);
-    
-    lv_init();
-    lv_port_init();
+    hw_config_init();
     
     xtrack_app_init();
     while (1)
@@ -46,11 +33,4 @@ int main(void)
         xtrack_app_update();
         lv_task_handler();
     }
-#else
-    xtrack_app_init();
-    while(1)
-    {
-        
-    }
-#endif
 }

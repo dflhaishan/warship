@@ -10,6 +10,11 @@ void HAL::Display_Init()
 
 }
 
+void HAL::Display_DumpCrashInfo(const char* info)
+{
+    
+}
+
 void HAL::Display_SetAddrWindow(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 {
 

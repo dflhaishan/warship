@@ -2,7 +2,6 @@ C_SOURCES +=  \
 ${ARMFLY}/User/main.c \
 ${ARMFLY}/User/bsp/stm32f1xx_it.c \
 ${ARMFLY}/User/bsp/system_stm32f1xx.c \
-${ARMFLY}/User/bsp/bsp.c \
 ${ARMFLY}/User/bsp/src/bsp_led.c \
 ${ARMFLY}/User/bsp/src/bsp_tft_lcd.c \
 ${ARMFLY}/User/fonts/src/asc12.c \

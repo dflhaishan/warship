@@ -85,7 +85,7 @@
 #define LV_TICK_CUSTOM     1
 #if LV_TICK_CUSTOM
 // #ifdef ARDUINO
-#  define LV_TICK_CUSTOM_INCLUDE       "arduino.h"    /*Header for the system time function*/
+#  define LV_TICK_CUSTOM_INCLUDE       "Arduino.h"    /*Header for the system time function*/
 #  define LV_TICK_CUSTOM_SYS_TIME_EXPR (millis())     /*Expression evaluating to current system time in ms*/
 // #else
 // #  define LV_TICK_CUSTOM_INCLUDE  <Windows.h>
