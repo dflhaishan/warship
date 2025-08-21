@@ -25,6 +25,7 @@
 
 #include <stdint.h>
 #include "hal_def.h"
+#include "Arduino.h"
 
 namespace HAL {
     
