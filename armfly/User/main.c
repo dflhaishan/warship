@@ -26,11 +26,10 @@
 int main(void)
 {
     hw_config_init();
-    
+    // bsp_InitLcd();
     xtrack_app_init();
     while (1)
     {
         xtrack_app_update();
-        lv_task_handler();
     }
 }

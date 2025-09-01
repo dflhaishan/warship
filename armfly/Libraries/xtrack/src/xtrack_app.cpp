@@ -76,4 +76,5 @@ void xtrack_app_init(void)
 void xtrack_app_update(void)
 {
     HAL::HAL_Update();
+    lv_task_handler();
 }

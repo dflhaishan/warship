@@ -1,38 +1,5 @@
 C_SOURCES +=  \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_rcc_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_gpio.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_dma.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_cortex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_pwr.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_flash_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_exti.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_tim_ex.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_msp.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_uart.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_sram.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_hal_nor.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_adc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_crc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dac.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_dma.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_exti.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_fsmc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_gpio.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_i2c.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_pwr.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rcc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_rtc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_sdmmc.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_spi.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_tim.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usart.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_usb.c \
-${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/stm32f1xx_ll_utils.c \
+$(shell find ${ARMFLY}/Libraries/STM32F1xx_HAL_Driver/Src/ -type f -name '*.c') \
 $(shell find ${ARMFLY}/Libraries/lvgl/src/ -type f -name '*.c') \
 $(shell find ${ARMFLY}/Libraries/xtrack/src/ -type f -name '*.c') \
 ${ARMFLY}/Libraries/cm_backtrace/cm_backtrace.c \
@@ -98,6 +65,7 @@ C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/xtrack/src/utils/lv_ext \
 -I${ARMFLY}/Libraries/xtrack/src/utils/lv_poly_line \
 -I${ARMFLY}/Libraries/xtrack/src/utils/tileconv \
+-I${ARMFLY}/Libraries/xtrack/src/utils/alientek_tftlcd \
 -I${ARMFLY}/Libraries/xtrack/src/common/dataproc \
 -I${ARMFLY}/Libraries/xtrack/src/common/hal \
 -I${ARMFLY}/Libraries/xtrack/src/common/music \
@@ -132,4 +100,5 @@ ${ARMFLY}/Libraries/arduino_core/IPAddress.cpp \
 ${ARMFLY}/Libraries/arduino_core/wiring_pulse.cpp \
 ${ARMFLY}/Libraries/arduino_core/variants/STM32F1xx/F103ZC_D_E_H_T/variant_generic.cpp \
 ${ARMFLY}/Libraries/arduino_core/variants/STM32F1xx/F103ZC_D_E_H_T/variant_VCCGND_F103ZET6_XXX.cpp \
-${ARMFLY}/Libraries/arduino_core/srcwrapper/src/analog.cpp
+${ARMFLY}/Libraries/arduino_core/srcwrapper/src/analog.cpp \
+${ARMFLY}/Libraries/arduino_core/HardwareTimer.cpp

@@ -1,18 +1,20 @@
 #include "hal.h"
+#include "tftlcd4_3_id5510.h"
 
-static uint8_t* Disp_DMA_TragetPoint = nullptr;
-static uint8_t* Disp_DMA_CurrentPoint = nullptr;
-static HAL::Display_CallbackFunc_t Disp_Callback = nullptr;
-
+static TFTLcd4_3_id5510 screen(480, 800);
 
 void HAL::Display_Init()
 {
-
+    Serial.print("Display: init...");
+    screen.begin();
+    screen.fillScreen(screen.White);
+    screen.setCursor(0, 0);
+    Serial.println("success");
 }
 
 void HAL::Display_DumpCrashInfo(const char* info)
 {
-    
+
 }
 
 void HAL::Display_SetAddrWindow(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
@@ -20,11 +22,7 @@ void HAL::Display_SetAddrWindow(int16_t x0, int16_t y0, int16_t x1, int16_t y1)
 
 }
 
-void HAL::Display_SendPixels(uint16_t* pixels, uint32_t len)
+void HAL::Display_SendPixels(int16_t x, int16_t y, uint16_t color)
 {
-}
-
-void HAL::Display_SetSendFinishCallback(Display_CallbackFunc_t func)
-{
-    Disp_Callback = func;
+    screen.drawPixel(x, y, color);
 }

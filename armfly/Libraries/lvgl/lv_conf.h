@@ -14,7 +14,6 @@
 /*clang-format off*/
 
 #include <stdint.h>
-#include "delay.h"
 
 /*====================
    COLOR SETTINGS

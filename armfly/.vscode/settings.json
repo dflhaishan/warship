@@ -42,7 +42,11 @@
         "new": "cpp",
         "stm32f1xx_ll_rcc.h": "c",
         "arduino.h": "c",
-        "print.h": "c"
+        "print.h": "c",
+        "atomic": "c",
+        "barrier": "c",
+        "condition_variable": "c",
+        "latch": "c"
     },
     "search.exclude": {
         "**/build": true,

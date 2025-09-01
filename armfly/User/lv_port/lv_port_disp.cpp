@@ -1,7 +1,6 @@
 #include "lv_port.h"
 #include "lvgl.h"
 #include "hal.h"
-#include "bsp_tft_lcd.h"
 
 #define CONFIG_SCREEN_HOR_RES    240
 #define CONFIG_SCREEN_VER_RES    240
@@ -16,23 +15,22 @@ static void disp_flush_cb(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t
 
     lv_coord_t x;
     lv_coord_t y;
-    uint16_t *color_pp = (uint16_t *)color_p;
     for(y = area->y1; y <= area->y2; y++) {
         for(x = area->x1; x <= area->x2; x++) {
             /*Put a pixel to the display. For example:*/
             /*put_px(x, y, *px_map)*/
-            LCD_PutPixel(x, y, *color_pp);
-            color_pp++;
+            HAL::Display_SendPixels(x, y, *(uint16_t *)color_p);
+            color_p++;
         }
     }
 
     lv_disp_flush_ready(disp);
 }
 
-static void disp_send_finish_callback()
-{
-    lv_disp_flush_ready(disp_drv_p);
-}
+// static void disp_send_finish_callback()
+// {
+//     lv_disp_flush_ready(disp_drv_p);
+// }
 
 static void disp_wait_cb(lv_disp_drv_t* disp_drv)
 {
@@ -41,7 +39,7 @@ static void disp_wait_cb(lv_disp_drv_t* disp_drv)
 
 void lv_port_disp_init()
 {
-    HAL::Display_SetSendFinishCallback(disp_send_finish_callback);
+    //HAL::Display_SetSendFinishCallback(disp_send_finish_callback);
 
 #if 0
     static lv_color_t lv_disp_buf[CONFIG_SCREEN_BUFFER_SIZE];
