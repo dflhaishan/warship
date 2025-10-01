@@ -30,7 +30,7 @@ static void disp_flush_cb(lv_disp_drv_t *disp, const lv_area_t *area, lv_color_t
     const lv_coord_t h = (area->y2 - area->y1 + 1);
     const uint32_t size = w * h;
 
-    HAL::Display_SetAddrWindow((area->x1) >> 8, (area->y1) >> 8, area->x2, area->y2);
+    HAL::Display_SetAddrWindow(area->x1 , area->y1, area->x2, area->y2);
     HAL::Display_SendPixels((uint16_t *)color_p, size);
 #endif
 }
