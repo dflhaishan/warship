@@ -41,8 +41,8 @@ private:
     uint16_t height;
     uint8_t rotation;
     uint32_t backlight_pin;
-    uint16_t* cmd;
-    uint16_t* data;
+    uint16_t *cmd;
+    uint16_t *data;
 };
 
 #endif

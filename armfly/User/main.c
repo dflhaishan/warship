@@ -26,7 +26,6 @@
 int main(void)
 {
     hw_config_init();
-    // bsp_InitLcd();
     xtrack_app_init();
     while (1)
     {

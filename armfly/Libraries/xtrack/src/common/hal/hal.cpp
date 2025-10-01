@@ -15,7 +15,7 @@ void HAL::HAL_Init()
     FaultHandle_Init();
 
     Memory_DumpInfo();
-
+    ExternSram_Init();
     Power_Init();
     Backlight_Init();
     Encoder_Init();
@@ -25,6 +25,8 @@ void HAL::HAL_Init()
 #if CONFIG_SENSOR_ENABLE
     HAL_Sensor_Init();
 #endif
+
+
     Audio_Init();
     SD_Init();
 
@@ -39,7 +41,7 @@ void HAL::HAL_Init()
     taskManager.Register(Memory_DumpInfo, 1000);
 
     // Timer_SetInterrupt(CONFIG_HAL_UPDATE_TIM, 10 * 1000, HAL_TimerInterrputUpdate);
-    // Timer_SetEnable(CONFIG_HAL_UPDATE_TIM, true);   
+    // Timer_SetEnable(CONFIG_HAL_UPDATE_TIM, true);
 }
 
 void HAL::HAL_Update()

@@ -27,7 +27,8 @@ ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/PortNames.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/stm32_def.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/timer.c \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/uart.c \
-${ARMFLY}/Libraries/arduino_core/srcwrapper/src/syscalls.c
+${ARMFLY}/Libraries/arduino_core/srcwrapper/src/syscalls.c \
+${ARMFLY}/Libraries/arduino_core/libraries/SPI/src/utility/spi_com.c
 
 C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/CMSIS/Device/ST/STM32F1xx/Include \
@@ -66,6 +67,7 @@ C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/xtrack/src/utils/lv_poly_line \
 -I${ARMFLY}/Libraries/xtrack/src/utils/tileconv \
 -I${ARMFLY}/Libraries/xtrack/src/utils/alientek_tftlcd \
+-I${ARMFLY}/Libraries/xtrack/src/utils/sdfat \
 -I${ARMFLY}/Libraries/xtrack/src/common/dataproc \
 -I${ARMFLY}/Libraries/xtrack/src/common/hal \
 -I${ARMFLY}/Libraries/xtrack/src/common/music \
@@ -74,7 +76,8 @@ C_INCLUDES +=  \
 -I${ARMFLY}/Libraries/arduino_core/ \
 -I${ARMFLY}/Libraries/arduino_core/avr \
 -I${ARMFLY}/Libraries/arduino_core/variants/STM32F1xx/F103ZC_D_E_H_T \
--I${ARMFLY}/Libraries/arduino_core/srcwrapper/inc
+-I${ARMFLY}/Libraries/arduino_core/srcwrapper/inc \
+-I${ARMFLY}/Libraries/arduino_core/libraries/SPI/src
 
 ASMM_SOURCES += \
 $(shell find ${ARMFLY}/Libraries/lvgl/src -type f -name '*.S') \
@@ -101,4 +104,5 @@ ${ARMFLY}/Libraries/arduino_core/wiring_pulse.cpp \
 ${ARMFLY}/Libraries/arduino_core/variants/STM32F1xx/F103ZC_D_E_H_T/variant_generic.cpp \
 ${ARMFLY}/Libraries/arduino_core/variants/STM32F1xx/F103ZC_D_E_H_T/variant_VCCGND_F103ZET6_XXX.cpp \
 ${ARMFLY}/Libraries/arduino_core/srcwrapper/src/analog.cpp \
-${ARMFLY}/Libraries/arduino_core/HardwareTimer.cpp
+${ARMFLY}/Libraries/arduino_core/HardwareTimer.cpp \
+${ARMFLY}/Libraries/arduino_core/libraries/SPI/src/SPI.cpp

@@ -1,6 +1,12 @@
 #include "tftlcd4_3_id5510.h"
 #include "Arduino.h"
 #include "stm32f1xx_ll_fsmc.h"
+#include "stm32f1xx_hal_dma.h"
+
+
+
+static SRAM_HandleTypeDef Lcd_SRAM_HandleStruct;
+
 
 const TFTLcd4_3_id5510::lcd_cmd_t lcd_cmd[] =
 {
@@ -129,9 +135,12 @@ const TFTLcd4_3_id5510::lcd_cmd_t lcd_cmd[] =
     {0x3A00, 0x55},   
 };
 
-void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
+void tftlcd_fsmc_handler()
 {
     GPIO_InitTypeDef GPIO_InitStruct;
+    FSMC_NORSRAM_TimingTypeDef FSMC_R_Tim;
+    FSMC_NORSRAM_TimingTypeDef FSMC_W_Tim;
+    
 
     __HAL_RCC_FSMC_CLK_ENABLE();
     __HAL_RCC_GPIOD_CLK_ENABLE();
@@ -152,28 +161,21 @@ void HAL_SRAM_MspInit(SRAM_HandleTypeDef *hsram)
 
     GPIO_InitStruct.Pin = GPIO_PIN_0 | GPIO_PIN_12;
     HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
-}
 
-void tftlcd_fsmc_handler()
-{
-    FSMC_NORSRAM_TimingTypeDef FSMC_R_Tim;
-    FSMC_NORSRAM_TimingTypeDef FSMC_W_Tim;
-    SRAM_HandleTypeDef SRAM_HandleStruct;
-
-    SRAM_HandleStruct.Instance                  = FSMC_NORSRAM_DEVICE;              
-    SRAM_HandleStruct.Extended                  = FSMC_NORSRAM_EXTENDED_DEVICE;     
-    SRAM_HandleStruct.Init.NSBank               = FSMC_NORSRAM_BANK4;               //使用NE4
-    SRAM_HandleStruct.Init.DataAddressMux       = FSMC_DATA_ADDRESS_MUX_DISABLE;    //地址/数据线不复用
-    SRAM_HandleStruct.Init.MemoryType           = FSMC_MEMORY_TYPE_SRAM;            //SRAM
-    SRAM_HandleStruct.Init.MemoryDataWidth      = FSMC_NORSRAM_MEM_BUS_WIDTH_16;    //16位数据宽度
-    SRAM_HandleStruct.Init.BurstAccessMode      = FSMC_BURST_ACCESS_MODE_DISABLE;   //是否使能突发访问,仅对同步突发存储器有效,此处未用到
-    SRAM_HandleStruct.Init.WaitSignalPolarity   = FSMC_WAIT_SIGNAL_POLARITY_LOW;    //等待信号的极性,仅在突发模式访问下有用
-    SRAM_HandleStruct.Init.WaitSignalActive     = FSMC_WAIT_TIMING_BEFORE_WS;       //存储器是在等待周期之前的一个时钟周期还是等待周期期间使能NWAIT
-    SRAM_HandleStruct.Init.WriteOperation       = FSMC_WRITE_OPERATION_ENABLE;      //存储器写使能
-    SRAM_HandleStruct.Init.WaitSignal           = FSMC_WAIT_SIGNAL_DISABLE;         //等待使能位,此处未用到
-    SRAM_HandleStruct.Init.ExtendedMode         = FSMC_EXTENDED_MODE_ENABLE;        //读写使用不同的时序
-    SRAM_HandleStruct.Init.AsynchronousWait     = FSMC_ASYNCHRONOUS_WAIT_DISABLE;   //是否使能同步传输模式下的等待信号,此处未用到
-    SRAM_HandleStruct.Init.WriteBurst           = FSMC_WRITE_BURST_DISABLE;         //禁止突发写
+    Lcd_SRAM_HandleStruct.Instance                  = FSMC_NORSRAM_DEVICE;              
+    Lcd_SRAM_HandleStruct.Extended                  = FSMC_NORSRAM_EXTENDED_DEVICE;     
+    Lcd_SRAM_HandleStruct.Init.NSBank               = FSMC_NORSRAM_BANK4;               //使用NE4
+    Lcd_SRAM_HandleStruct.Init.DataAddressMux       = FSMC_DATA_ADDRESS_MUX_DISABLE;    //地址/数据线不复用
+    Lcd_SRAM_HandleStruct.Init.MemoryType           = FSMC_MEMORY_TYPE_SRAM;            //SRAM
+    Lcd_SRAM_HandleStruct.Init.MemoryDataWidth      = FSMC_NORSRAM_MEM_BUS_WIDTH_16;    //16位数据宽度
+    Lcd_SRAM_HandleStruct.Init.BurstAccessMode      = FSMC_BURST_ACCESS_MODE_DISABLE;   //是否使能突发访问,仅对同步突发存储器有效,此处未用到
+    Lcd_SRAM_HandleStruct.Init.WaitSignalPolarity   = FSMC_WAIT_SIGNAL_POLARITY_LOW;    //等待信号的极性,仅在突发模式访问下有用
+    Lcd_SRAM_HandleStruct.Init.WaitSignalActive     = FSMC_WAIT_TIMING_BEFORE_WS;       //存储器是在等待周期之前的一个时钟周期还是等待周期期间使能NWAIT
+    Lcd_SRAM_HandleStruct.Init.WriteOperation       = FSMC_WRITE_OPERATION_ENABLE;      //存储器写使能
+    Lcd_SRAM_HandleStruct.Init.WaitSignal           = FSMC_WAIT_SIGNAL_DISABLE;         //等待使能位,此处未用到
+    Lcd_SRAM_HandleStruct.Init.ExtendedMode         = FSMC_EXTENDED_MODE_ENABLE;        //读写使用不同的时序
+    Lcd_SRAM_HandleStruct.Init.AsynchronousWait     = FSMC_ASYNCHRONOUS_WAIT_DISABLE;   //是否使能同步传输模式下的等待信号,此处未用到
+    Lcd_SRAM_HandleStruct.Init.WriteBurst           = FSMC_WRITE_BURST_DISABLE;         //禁止突发写
 
     FSMC_R_Tim.AddressSetupTime         = 0x06; //地址建立时间（ADDSET）为7个HCLK 13.8ns*7=96.6ns
     FSMC_R_Tim.AddressHoldTime          = 0;
@@ -184,7 +186,7 @@ void tftlcd_fsmc_handler()
     FSMC_W_Tim.AddressHoldTime          = 0;
     FSMC_W_Tim.DataSetupTime            = 0x06; //数据保存时间为13.8ns*7个HCLK=96.6ns
     FSMC_W_Tim.AccessMode               = FSMC_ACCESS_MODE_A;
-    HAL_SRAM_Init(&SRAM_HandleStruct, &FSMC_R_Tim, &FSMC_W_Tim);
+    HAL_SRAM_Init(&Lcd_SRAM_HandleStruct, &FSMC_R_Tim, &FSMC_W_Tim);
 }
 
 TFTLcd4_3_id5510::TFTLcd4_3_id5510(uint16_t w, uint16_t h)
@@ -232,7 +234,7 @@ void TFTLcd4_3_id5510::setRotation(uint8_t r)
     *cmd = (0x2A02);
     *data = ((width - 1) >> 8);
     *cmd = (0x2A03);
-    *data = (width - 1); 
+    *data = ((width - 1) & 0xff); 
     *cmd = (0x2B00);//set_y_cmd
     *data = (0); 
     *cmd = (0x2B01);
@@ -240,7 +242,7 @@ void TFTLcd4_3_id5510::setRotation(uint8_t r)
     *cmd = (0x2B02);
     *data = ((height - 1) >> 8); 
     *cmd = (0x2B03);
-    *data = (height - 1);
+    *data = ((height - 1) & 0xff);
 
     rotation = r;
 }
@@ -251,13 +253,21 @@ void TFTLcd4_3_id5510::setAddrWindow(int16_t x0, int16_t y0, int16_t x1, int16_t
     {
         case 0:
             *cmd = (0x2A00);
-            *data = (x0);
+            *data = (x0 >> 8);
             *cmd = (0x2A01);
-            *data = (x1);
+            *data = (x0 & 0xff);
+            *cmd = (0x2A02);
+            *data = (x1 >> 8);
+            *cmd = (0x2A03);
+            *data = (x1 & 0xff);
             *cmd = (0x2B00);
-            *data = (y0);
+            *data = (y0 >> 8);
             *cmd = (0x2B01);
-            *data = (y1);
+            *data = (y0 & 0xff);
+            *cmd = (0x2B02);
+            *data = (y1 >> 8);
+            *cmd = (0x2B03);
+            *data = (y1 & 0xff);
             break;
 
         default:
@@ -271,7 +281,14 @@ void TFTLcd4_3_id5510::setCursor(int16_t x, int16_t y)
     {
         return;
     }
-    setAddrWindow((x >> 8), (y >> 8), (x & 0xff), (y & 0xff));
+    *cmd = (0x2A00);
+    *data = (x >> 8);
+    *cmd = (0x2A01);
+    *data = (x & 0xff);
+    *cmd = (0x2B00);
+    *data = (y >> 8);
+    *cmd = (0x2B01);
+    *data = (y & 0xff);    
 }
 
 void TFTLcd4_3_id5510::drawPixel(int16_t x, int16_t y, uint16_t color)
@@ -280,7 +297,7 @@ void TFTLcd4_3_id5510::drawPixel(int16_t x, int16_t y, uint16_t color)
     {
         return;
     }
-    setAddrWindow((x >> 8), (y >> 8), (x & 0xff), (y & 0xff));
+    setCursor(x, y);
 
     *cmd = (0x2C00);
     *data = (color);
@@ -288,7 +305,7 @@ void TFTLcd4_3_id5510::drawPixel(int16_t x, int16_t y, uint16_t color)
 
 void TFTLcd4_3_id5510::fillScreen(uint16_t color)
 {
-    setAddrWindow(0, 0, 0, 0);
+    setCursor(0, 0);
     *cmd = (0x2C00);
 
     uint32_t size = width * height;

@@ -1,6 +1,6 @@
 #include "lv_port.h"
 #include "lvgl.h"
-#if 0
+#if 1
 #include "SdFat.h"
 #include "hal.h"
 

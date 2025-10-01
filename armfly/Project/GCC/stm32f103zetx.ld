@@ -62,7 +62,8 @@ _Min_Stack_Size = 0x2000; /* required amount of stack */
 MEMORY
 {
 RAM (xrw)      : ORIGIN = 0x20000000, LENGTH = 64K
-FLASH (rx)      : ORIGIN = 0x8000000, LENGTH = 512K
+FLASH (rx)     : ORIGIN = 0x8000000, LENGTH = 512K
+EXTSRAM (xrw)  : ORIGIN = 0x68000000, LENGTH = 1024K
 }
 
 /* Define output sections */
@@ -174,6 +175,16 @@ SECTIONS
     . = . + _Min_Stack_Size;
     . = ALIGN(8);
   } >RAM
+
+  /* extern sram */
+  .extern_sram_area (NOLOAD) :
+  {
+    . = ALIGN(4);
+    _sextern_sram_area = .;
+    *(.extern_sram_area*)
+    . = ALIGN(4);
+    _eextern_sram_area = .;
+  } >EXTSRAM
 
   
 

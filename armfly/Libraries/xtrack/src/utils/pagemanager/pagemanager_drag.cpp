@@ -186,7 +186,7 @@ void PageManager::onRootAsyncLeave(void* data)
 {
     PageBase* base = (PageBase*)data;
     PM_LOG_INFO("Page(%s) send event: LV_EVENT_LEAVE, need to handle...", base->Name);
-    // lv_event_send(base->root, LV_EVENT_LEAVE, base);
+    lv_event_send(base->root, LV_EVENT_LEAVE, base);
 }
 
 /**
